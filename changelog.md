@@ -6,8 +6,10 @@ For more information about how to maintain this document, [please keep a changel
 
 ## [Unreleased][unreleased]
 
+## [2.1.0][2.1.0]
+
 ### Added
 * Initial Commit
 
-[unreleased]: https://bitbucket.org/GneuLLC/flathead/branches/compare/HEAD%0Dv2.1.0
-[2.1.0]: https://bitbucket.org/GneuLLC/flathead/commits/tag/v2.1.0
+[unreleased]: https://github.com/OpenGneu/Flathead/compare/HEAD...v2.1.0
+[2.1.0]: https://github.com/OpenGneu/flathead/tree/v2.1.0
