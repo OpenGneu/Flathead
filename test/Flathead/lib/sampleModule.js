@@ -1,0 +1,1 @@
+exports.meaningOfLife = 42;
