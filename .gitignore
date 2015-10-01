@@ -1,0 +1,15 @@
+node_modules
+deps/v8
+deps/.gclient
+deps/.gclient_entries
+
+libs/v8
+
+deploy/**/*
+intermediate/**/*
+ipch/**/*
+TestResults/**/*
+
+*.sdf
+*.opensdf
+*.user
