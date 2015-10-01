@@ -1,0 +1,18 @@
+{
+	"name": "Flathead",
+	"version": "2.0.0",
+	"description": "Wrapper for V8 interface to be used by other applications.",
+	"main": "build/build.bat",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@bitbucket.org:GneuLLC/Flathead"
+	},
+	"author": "Bob Chatman <bob@gneu.org>",
+	"dependencies": {
+		"glob": "^5.0.14",
+		"semver": "^5.0.3"
+	}
+}
