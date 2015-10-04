@@ -32,4 +32,4 @@ If you run into any issues please follow the manual build steps from this [gist]
 **Lead Developer** - Bob Chatman <bob@gneu.org>
 
 # License
-GNU Lesser General Public License, version 3.0 (LGPL-3.0)
+The MIT License (MIT) - http://opensource.org/licenses/MIT
