@@ -6,6 +6,10 @@ For more information about how to maintain this document, [please keep a changel
 
 ## [Unreleased][unreleased]
 
+### Changed
+
+* Changed license per user feedback. 
+
 ## [2.1.0][2.1.0]
 
 ### Added
