@@ -27,6 +27,9 @@ If you run into any issues please follow the manual build steps from this [gist]
 8. Build Debug
 9. Build Release
 10. Run `build\copyV8Filesx64.bat`
+11. Run `build\copyIncludes.bat`
+12. Update line 8 of `libs\v8\**version**\include\libplatform\libplatform.h` from `#include "include/v8-platform.h"` to `#include "v8-platform.h"`
+13. Update the `Include Directorys` and `Library Directories` to the correct v8 deployment path. 
 
 # Contact & Contributions
 **Lead Developer** - Bob Chatman <bob@gneu.org>
