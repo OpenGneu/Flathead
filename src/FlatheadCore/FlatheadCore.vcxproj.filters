@@ -67,6 +67,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\bootstrap.js" />
+    <None Include="lib\core\bootstrap.js" />
   </ItemGroup>
 </Project>
