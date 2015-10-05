@@ -3,6 +3,8 @@ set BASEDIR=%CD%
 
 REM Do a full build here
 
+npm install
+
 SET PATH=%PATH%;%CD%\deps\depot_tools
 CD deps
 fetch v8

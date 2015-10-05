@@ -11,8 +11,11 @@
 
 	var copyFile = function(source, destination) {
 		console.log(source + " > " + destination);
-
-		fs.createReadStream(source).pipe(fs.createWriteStream(destination));
+		try {
+			fs.lstatSync(source);
+			fs.createReadStream(source).pipe(fs.createWriteStream(destination));
+		} catch (e) {
+		}
 	};
 
 	glob("deps/v8/include/**/*.h", function(err, files) {

@@ -71,12 +71,12 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.7.62\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\libs\v8\4.7.62\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.7.62\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\libs\v8\4.7.62\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
@@ -85,12 +85,12 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.7.62\include\;</IncludePath>
-    <LibraryPath>$(SolutionDir)\libs\v8\4.7.62\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.7.62\include\;</IncludePath>
-    <LibraryPath>$(SolutionDir)\libs\v8\4.7.62\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
@@ -107,11 +107,24 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreLinkEvent>
-      <Command>$(SolutionDir)build\copyv8.bat $(Configuration) $(PlatformShortName)</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <PreLinkEvent>
-      <Message>Copying V8 libraries</Message>
+      <Message>
+      </Message>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Message>Copying V8 Libraries</Message>
+      <Command>cd $(SolutionDir)
+node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -125,11 +138,24 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreLinkEvent>
-      <Command>$(SolutionDir)build\copyv8.bat $(Configuration) $(PlatformShortName)</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <PreLinkEvent>
-      <Message>Copying V8 libraries</Message>
+      <Message>
+      </Message>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>cd $(SolutionDir)
+node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
+      <Message>Copying V8 Libraries</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,11 +173,26 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreLinkEvent>
-      <Command>$(SolutionDir)build\copyv8.bat $(Configuration) $(PlatformShortName)</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <PreLinkEvent>
-      <Message>Copying V8 libraries</Message>
+      <Message>
+      </Message>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>cd $(SolutionDir)
+node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying V8 Libraries</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -174,6 +215,17 @@
     <PreLinkEvent>
       <Message>Copying V8 libraries</Message>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>cd $(SolutionDir)
+node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
+      <Message>Copying V8 Libraries</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Private\Interfaces\ConsoleInterfaces.h" />

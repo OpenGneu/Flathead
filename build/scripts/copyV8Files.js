@@ -22,8 +22,11 @@
 
 	var copyFile = function(source, destination) {
 		console.log(source + " > " + destination);
-
-		fs.createReadStream(source).pipe(fs.createWriteStream(destination));
+		try {
+			fs.lstatSync(source);
+			fs.createReadStream(source).pipe(fs.createWriteStream(destination));
+		} catch (e) {
+		}
 	};
 
 	var copyFiles = function(source, destination, configuration) {
