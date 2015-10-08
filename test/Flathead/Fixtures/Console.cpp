@@ -311,7 +311,7 @@ namespace Gneu
 		{
 			fh->Execute("console.trace();", buffer);
 
-			Assert::AreEqual("Error\n    at Object.<anonymous> (lib/core/bootstrap.js:34:13)\n    at <anonymous>:1:9", g_Buffer);
+			Assert::AreEqual("Error\n    at Object.<anonymous> (lib/core/bootstrap.js:34:19)\n    at <anonymous>:1:9", g_Buffer);
 		}
 	};
 
