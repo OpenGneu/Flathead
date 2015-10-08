@@ -32,6 +32,6 @@ For more information about how to maintain this document, [please keep a changel
 ### Added
 * Initial Commit
 
-[unreleased]: https://github.com/OpenGneu/Flathead/compare/HEAD...v2.1.1
-[2.1.1]: https://github.com/OpenGneu/Flathead/compare/v2.1.1...v2.1.0
+[unreleased]: https://github.com/OpenGneu/Flathead/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/OpenGneu/Flathead/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/OpenGneu/flathead/tree/v2.1.0
