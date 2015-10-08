@@ -18,6 +18,11 @@ namespace Gneu
 			pFH = new Flathead();
 		}
 
+		TEST_CLASS_CLEANUP(CleanupV8JSTests)
+		{
+			delete pFH;
+		}
+
 		TEST_METHOD(V8ObjectShouldBeDefined)
 		{
 			pFH->Execute("v8;", buffer);

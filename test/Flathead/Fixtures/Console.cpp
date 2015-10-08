@@ -20,6 +20,13 @@ namespace Gneu
 			cfg.LoggingFn(TrackingLoggingFn);
 
 			fh = new Flathead(cfg);
+
+			Assert::IsNotNull(fh);
+		}
+
+		TEST_CLASS_CLEANUP(CleanupConsoleTests)
+		{
+			delete fh;
 		}
 
 		TEST_METHOD_INITIALIZE(InitializeConsoleTestsMethods)

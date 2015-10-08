@@ -17,6 +17,11 @@ namespace Gneu
 			pFH = new Flathead();
 		}
 
+		TEST_CLASS_CLEANUP(CleanupFlatheadExecuteTests)
+		{
+			delete pFH;
+		}
+
 		TEST_METHOD(ShouldSupportStrings)
 		{
 			char buffer[2048];

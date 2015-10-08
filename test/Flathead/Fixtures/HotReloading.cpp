@@ -13,6 +13,7 @@ namespace Gneu
 	TEST_CLASS(HotReloadingTests)
 	{
 		static Flathead *pFH;
+		char buffer[2048];
 
 	public:
 		TEST_CLASS_INITIALIZE(InitializeHotReloadingTests)
@@ -20,9 +21,13 @@ namespace Gneu
 			pFH = new Flathead();
 		}
 
+		TEST_CLASS_CLEANUP(CleanupHotReloadingTests)
+		{
+			delete pFH;
+		}
+
 		TEST_METHOD(FlatheadObjectShouldBeDefined)
 		{
-			char buffer[2048];
 			WriteToFile("lib/HotReload.js", "");
 
 			pFH->Execute("JSON.stringify(require('./HotReload'));", buffer);

@@ -9,6 +9,7 @@ For more information about how to maintain this document, [please keep a changel
 ### Added
 * Module hot swapping 
 * Provided unload event for hot swapping
+* EnableHotReloading flag is reflected in behavior of bootstrapping
 
 ## [2.1.1][2.1.1]
 

@@ -16,6 +16,11 @@ namespace Gneu
 		{
 			pFH = new Flathead();
 		}
+		
+		TEST_CLASS_CLEANUP(CleanupFlatheadJSTests)
+		{
+			delete pFH;
+		}
 
 		TEST_METHOD(FlatheadObjectShouldBeDefined)
 		{
