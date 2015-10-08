@@ -26,6 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Configuration cfg;
 
 	cfg.EnableHarmonyDestructuring(true);
+	cfg.EnableHotReload(false);
 
 	Flathead *pFH = new Flathead(cfg);
 	char buffer[4096];

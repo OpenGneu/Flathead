@@ -61,6 +61,33 @@ namespace Gneu
 			Assert::IsTrue(unloaded);
 		}
 
+		TEST_METHOD(ShouldBeDisabledWhenConfiguredAsSuch)
+		{
+			bool unloaded = false;
+
+			Configuration cfg;
+
+			cfg.EnableHotReload(false);
+
+			Flathead *fh = new Flathead(cfg);
+
+			WriteToFile("lib/HotReload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.unloaded = true; }");
+
+			pFH->Execute("require('./HotReload').value;", unloaded);
+
+			Assert::IsFalse(unloaded);
+
+			std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
+
+			WriteToFile("lib/HotReload.js", "exports.value = this.unloaded;");
+
+			pFH->Tick(1.0f);
+
+			pFH->Execute("require('./HotReload').value;", unloaded);
+
+			Assert::IsFalse(unloaded);
+		}
+
 		void WriteToFile(char *fileName, char *output)
 		{
 			FILE* file;

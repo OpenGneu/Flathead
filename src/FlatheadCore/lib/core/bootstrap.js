@@ -1,4 +1,4 @@
-(function(_log, _info, _warn, _error, _assert, _exists, _loadContent, _execute, _modified, _path, _v8Version, _fhVersion) {
+(function(_log, _info, _warn, _error, _assert, _exists, _loadContent, _execute, _modified, _path, _v8Version, _fhVersion, _enableHotReload) {
     "use strict";
 
     let console = {};
@@ -202,6 +202,10 @@
     };
 
     let handleHotReload = function () {
+        if (!_enableHotReload) {
+            return;
+        }
+
         for (let module of moduleCache) {
             let lastModifiedTime = _modified(module[1].source);
 

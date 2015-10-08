@@ -204,6 +204,7 @@ void Flathead::PreloadCore()
 			String::NewFromUtf8(g_CurrentVM, GetConfiguration()->Path()),
 			String::NewFromUtf8(g_CurrentVM, V8::GetVersion()),
 			String::NewFromUtf8(g_CurrentVM, BINDING_VERSION),
+			Boolean::New(g_CurrentVM, GetConfiguration()->EnableHotReload()),
 		};
 
 		Local<Value> load = func->Call(context->Global(), sizeof(args) / sizeof(args[0]), args);
