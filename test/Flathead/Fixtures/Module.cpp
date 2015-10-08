@@ -19,6 +19,11 @@ namespace Gneu
 			pFH = new Flathead();
 		}
 
+		TEST_CLASS_CLEANUP(CleanupModuleTests)
+		{
+			delete pFH;
+		}
+
 		TEST_METHOD(RequireFunctionShouldBeDefined)
 		{
 			pFH->Execute("typeof(require);", buffer);

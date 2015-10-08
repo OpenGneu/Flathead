@@ -20,6 +20,13 @@ namespace Gneu
 			cfg.LoggingFn(TrackingLoggingFn);
 
 			fh = new Flathead(cfg);
+
+			Assert::IsNotNull(fh);
+		}
+
+		TEST_CLASS_CLEANUP(CleanupConsoleTests)
+		{
+			delete fh;
 		}
 
 		TEST_METHOD_INITIALIZE(InitializeConsoleTestsMethods)
@@ -311,7 +318,7 @@ namespace Gneu
 		{
 			fh->Execute("console.trace();", buffer);
 
-			Assert::AreEqual("Error\n    at Object.<anonymous> (lib/core/bootstrap.js:34:13)\n    at <anonymous>:1:9", g_Buffer);
+			Assert::AreEqual("Error\n    at Object.<anonymous> (lib/core/bootstrap.js:34:19)\n    at <anonymous>:1:9", g_Buffer);
 		}
 	};
 

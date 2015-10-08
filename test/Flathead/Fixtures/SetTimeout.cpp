@@ -22,6 +22,11 @@ namespace Gneu
 			pFH = new Flathead(cfg);
 		}
 
+		TEST_CLASS_CLEANUP(CleanupSetTimeoutTests)
+		{
+			delete pFH;
+		}
+
 		TEST_METHOD_INITIALIZE(InitializeSetTimeoutMethodTests)
 		{
 			ResetTracking();

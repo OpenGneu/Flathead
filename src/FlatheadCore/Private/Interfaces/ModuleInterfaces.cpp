@@ -59,6 +59,24 @@ void ModuleInterfaces::LoadModule(const v8::FunctionCallbackInfo<v8::Value>& arg
 	args.GetReturnValue().Set(v8::String::NewFromUtf8(args.GetIsolate(), result));
 }
 
+void ModuleInterfaces::Modified(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+	struct stat buf;
+
+	// Filename
+	if (args.Length() != 1)
+	{
+		args.GetReturnValue().SetUndefined();
+		return; // invalid arguments
+	}
+
+	v8::String::Utf8Value Filename(args[0]);
+
+	stat(*Filename, &buf);
+
+	args.GetReturnValue().Set(Date::New(args.GetIsolate(), 1000 * (double)buf.st_mtime)); // NOTE: Date::New is in milliseconds
+}
+
 void ModuleInterfaces::Execute(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
 	Isolate::Scope isoScope(args.GetIsolate());
