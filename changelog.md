@@ -6,10 +6,32 @@ For more information about how to maintain this document, [please keep a changel
 
 ## [Unreleased][unreleased]
 
+## [2.1.1][2.1.1]
+
+### Added
+* Including Coverage report with release notes
+* Ensuring VS copys libs appropriately. 
+
+### Changed
+* Changed licenses per user feedback
+* Updated build scripts with missing steps
+* Trapping error in build script when copying files if paths are incorrect or when  release versions of the application. 
+* Updated to **V8 v4.8.0**
+* Added `npm install` to init script `build/init.bat`
+
+### Test Coverage
+
+| Type                        | Coverage % |
+| :-------------------------- | ---------: | 
+| **Covered Lines**           |      80.7% | 
+| **Uncovered Lines**         |      18.0% | 
+| **Partially Covered Lines** |       1.3% | 
+
 ## [2.1.0][2.1.0]
 
 ### Added
 * Initial Commit
 
-[unreleased]: https://github.com/OpenGneu/Flathead/compare/HEAD...v2.1.0
+[unreleased]: https://github.com/OpenGneu/Flathead/compare/HEAD...v2.1.1
+[2.1.1]: https://github.com/OpenGneu/Flathead/compare/v2.1.1...v2.1.0
 [2.1.0]: https://github.com/OpenGneu/flathead/tree/v2.1.0

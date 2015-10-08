@@ -1,6 +1,6 @@
 {
 	"name": "Flathead",
-	"version": "2.0.0",
+	"version": "2.1.1",
 	"description": "Wrapper for V8 interface to be used by other applications.",
 	"main": "build/build.bat",
 	"scripts": {
