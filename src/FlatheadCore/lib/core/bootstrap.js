@@ -208,6 +208,11 @@
             if (lastModifiedTime > module[1].lastLoaded) {
                 console.log("Reloading Module: " + module[0]);
 
+                /// Handle unloading event
+                if (typeof(module[1].unload) === 'function') {
+                    module[1].unload();
+                }
+
                 moduleCache.set(module[0], loadModule(module[1].source));
             }
         };

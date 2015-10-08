@@ -40,6 +40,27 @@ namespace Gneu
 			Assert::AreEqual("{\"value\":{\"test\":42}}", buffer);
 		}
 
+		TEST_METHOD(ShouldProvideUnloadFunctionForHotSwapping)
+		{
+			bool unloaded = false;
+
+			WriteToFile("lib/HotReload.js", "this.myVar = false; var that = this; exports.value = this.myVar; module.unload = function () { that.myVar = true; }");
+
+			pFH->Execute("require('./HotReload').value;", unloaded);
+
+			Assert::IsFalse(unloaded);
+
+			std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
+
+			WriteToFile("lib/HotReload.js", "console.log(JSON.stringify(this)); exports.value = this.myVar;");
+
+			pFH->Tick(1.0f);
+
+			pFH->Execute("require('./HotReload').value;", unloaded);
+
+			Assert::IsTrue(unloaded);
+		}
+
 		void WriteToFile(char *fileName, char *output)
 		{
 			FILE* file;

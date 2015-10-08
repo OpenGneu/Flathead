@@ -29,17 +29,18 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Flathead *pFH = new Flathead(cfg);
 	char buffer[4096];
-	WriteToFile("lib/HotReload.js", "");
 
-	pFH->Execute("JSON.stringify(require('./HotReload'));", buffer);
+	WriteToFile("lib/HotReload.js", "this.myVar = false; var that = this; exports.value = this.myVar; module.unload = function () { that.myVar = true; }");
+
+	pFH->Execute("require('./HotReload').value;", buffer);
 
 	std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
 
-	WriteToFile("lib/HotReload.js", "exports.value = {test: 42};");
+	WriteToFile("lib/HotReload.js", "console.log(JSON.stringify(this)); exports.value = this.myVar;");
 
 	pFH->Tick(1.0f);
 
-	pFH->Execute("JSON.stringify(require('./HotReload'));", buffer);
+	pFH->Execute("require('./HotReload').value;", buffer);
 	
 	delete pFH;
 	pFH = NULL;
