@@ -8,8 +8,8 @@ For more information about how to maintain this document, [please keep a changel
 
 ### Changed
 * Changed licenses per user feedback. 
-* Updated to V8 v4.8.0
-* Added npm init to init script build/init.bat
+* Updated to **V8 v4.8.0**
+* Added `npm install` to init script `build/init.bat`
 
 ## [2.1.0][2.1.0]
 
