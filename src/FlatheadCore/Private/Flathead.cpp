@@ -200,6 +200,7 @@ void Flathead::PreloadCore()
 			Function::New(g_CurrentVM, &ModuleInterfaces::Exists, External::New(g_CurrentVM, this)),
 			Function::New(g_CurrentVM, &ModuleInterfaces::LoadModule, External::New(g_CurrentVM, this)),
 			Function::New(g_CurrentVM, &ModuleInterfaces::Execute, External::New(g_CurrentVM, this)),
+			Function::New(g_CurrentVM, &ModuleInterfaces::Modified, External::New(g_CurrentVM, this)),
 			String::NewFromUtf8(g_CurrentVM, GetConfiguration()->Path()),
 			String::NewFromUtf8(g_CurrentVM, V8::GetVersion()),
 			String::NewFromUtf8(g_CurrentVM, BINDING_VERSION),
