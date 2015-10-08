@@ -44,7 +44,7 @@ namespace Gneu
 		{
 			bool unloaded = false;
 
-			WriteToFile("lib/HotReload.js", "this.myVar = false; var that = this; exports.value = this.myVar; module.unload = function () { that.myVar = true; }");
+			WriteToFile("lib/HotReload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.unloaded = true; }");
 
 			pFH->Execute("require('./HotReload').value;", unloaded);
 
@@ -52,7 +52,7 @@ namespace Gneu
 
 			std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
 
-			WriteToFile("lib/HotReload.js", "console.log(JSON.stringify(this)); exports.value = this.myVar;");
+			WriteToFile("lib/HotReload.js", "exports.value = this.unloaded;");
 
 			pFH->Tick(1.0f);
 
