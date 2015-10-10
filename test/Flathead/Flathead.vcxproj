@@ -76,13 +76,13 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -169,6 +169,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Fixtures\DefiningPrimitives.cpp" />
+    <ClCompile Include="Fixtures\ExposingValues.cpp" />
     <ClCompile Include="Fixtures\Console.cpp" />
     <ClCompile Include="Fixtures\Flathead.cpp" />
     <ClCompile Include="Fixtures\FlatheadExecute.cpp" />
