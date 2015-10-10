@@ -169,8 +169,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fixtures\DefiningPrimitives.cpp" />
-    <ClCompile Include="Fixtures\ExposingValues.cpp" />
+    <ClCompile Include="Fixtures\Types\DefiningBooleans.cpp" />
+    <ClCompile Include="Fixtures\Types\DefiningPrimitives.cpp" />
+    <ClCompile Include="Fixtures\Types\ExposingValues.cpp" />
     <ClCompile Include="Fixtures\Console.cpp" />
     <ClCompile Include="Fixtures\Flathead.cpp" />
     <ClCompile Include="Fixtures\FlatheadExecute.cpp" />

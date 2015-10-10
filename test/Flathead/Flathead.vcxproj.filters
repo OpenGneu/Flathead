@@ -56,10 +56,13 @@
     <ClCompile Include="Fixtures\HotReloading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Fixtures\ExposingValues.cpp">
+    <ClCompile Include="Fixtures\Types\ExposingValues.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Fixtures\DefiningPrimitives.cpp">
+    <ClCompile Include="Fixtures\Types\DefiningPrimitives.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fixtures\Types\DefiningBooleans.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "API.h"
 
 #include "Primitive.h"
+#include "Boolean.h"
 
 #pragma once
 
@@ -16,6 +17,9 @@ namespace Gneu
 
 			static const Primitive Null;
 			static const Primitive Undefined;
+
+			static const Boolean True;
+			static const Boolean False;
 		};
 	}
 }

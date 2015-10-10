@@ -57,6 +57,9 @@
     <ClInclude Include="Public\Enumerations\PrimitiveTypeFlags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Types\Boolean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Private\Types\Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Boolean.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

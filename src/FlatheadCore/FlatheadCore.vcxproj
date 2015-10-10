@@ -237,6 +237,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="Public\Flathead.h" />
     <ClInclude Include="Public\stdafx.h" />
     <ClInclude Include="Public\targetver.h" />
+    <ClInclude Include="Public\Types\Boolean.h" />
     <ClInclude Include="Public\Types\Constants.h" />
     <ClInclude Include="Public\Types\Primitive.h" />
     <ClInclude Include="Public\Types\Value.h" />
@@ -247,6 +248,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
   <ItemGroup>
     <ClCompile Include="Private\Flathead.cpp" />
     <ClCompile Include="Private\Interfaces\ModuleInterfaces.cpp" />
+    <ClCompile Include="Private\Types\Boolean.cpp" />
     <ClCompile Include="Private\Types\Constants.cpp" />
     <ClCompile Include="Private\Types\Primitive.cpp" />
     <ClCompile Include="Private\Types\Value.cpp" />
