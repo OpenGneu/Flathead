@@ -89,19 +89,43 @@ namespace Gneu
 				Assert::IsFalse(Constants::False);
 			}
 
-			TEST_METHOD(EqualityShouldWork)
+			TEST_METHOD(EqualityShouldWork_true)
+			{
+				Boolean bTrue1(true);
+				Boolean bTrue2(true);
+
+				Assert::IsTrue(bTrue1 == true);
+				Assert::IsTrue(bTrue2 == true);
+
+				Assert::IsTrue(bTrue1 != false);
+				Assert::IsTrue(bTrue2 != false);
+
+				Assert::IsTrue(bTrue1 == bTrue2);
+				Assert::IsTrue(bTrue2 == bTrue1);
+			}
+
+			TEST_METHOD(EqualityShouldWork_false)
+			{
+				Boolean bFalse1(false);
+				Boolean bFalse2(false);
+
+				Assert::IsTrue(bFalse1 == false);
+				Assert::IsTrue(bFalse2 == false);
+
+				Assert::IsTrue(bFalse1 != true);
+				Assert::IsTrue(bFalse2 != true);
+
+				Assert::IsTrue(bFalse1 == bFalse2);
+				Assert::IsTrue(bFalse2 == bFalse1);
+			}
+
+			TEST_METHOD(EqualityShouldWork_interaction)
 			{
 				Boolean bTrue1(true);
 				Boolean bTrue2(true);
 
 				Boolean bFalse1(false);
 				Boolean bFalse2(false);
-
-				Assert::IsTrue(bTrue1 == bTrue2);
-				Assert::IsTrue(bTrue2 == bTrue1);
-
-				Assert::IsTrue(bFalse1 == bFalse2);
-				Assert::IsTrue(bFalse2 == bFalse1);
 
 				Assert::IsTrue(bTrue1 != bFalse1);
 				Assert::IsTrue(bTrue2 != bFalse1);
