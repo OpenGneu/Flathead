@@ -8,3 +8,8 @@ bool Value::IsBoolean() const
 {
 	return false;
 }
+
+bool Value::IsUndefined() const
+{
+	return false;
+}

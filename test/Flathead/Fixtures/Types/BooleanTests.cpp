@@ -26,18 +26,28 @@ namespace Gneu
 		TEST_METHOD(ShouldBeAbleToCreateABoolean)
 		{
 			bool myBool;
-			pFH->Execute("myBool = true;", myBool);
+			pFH->Execute("myTrueBool = true; myFalseBool = false;", myBool);
 
-			Types::Value *myBoolValue = pFH->Get("myBool");
+			Types::Value *myTrueBoolValue = pFH->Get("myTrueBool");
+			Types::Value *myFalseBoolValue = pFH->Get("myFalseBool");
 
-			Assert::IsNotNull(myBoolValue);
-			Assert::IsTrue(myBoolValue->IsBoolean());
+			Assert::IsNotNull(myTrueBoolValue);
+			Assert::IsTrue(myTrueBoolValue->IsBoolean());
 
-			Types::Boolean *myBoolean = (Types::Boolean *)myBoolValue;
+			Types::Boolean *myBoolean = (Types::Boolean *)myTrueBoolValue;
 
-			Assert::IsNotNull(myBoolValue);
-			Assert::IsTrue(myBoolValue->IsBoolean());
-			// Assert::IsTrue(*myBoolValue);
+			Assert::IsNotNull(myBoolean);
+			Assert::IsTrue(myBoolean->IsBoolean());
+			Assert::IsTrue(*myBoolean);
+
+			Assert::IsNotNull(myFalseBoolValue);
+			Assert::IsTrue(myFalseBoolValue->IsBoolean());
+
+			myBoolean = (Types::Boolean *)myFalseBoolValue;
+
+			Assert::IsNotNull(myBoolean);
+			Assert::IsTrue(myBoolean->IsBoolean());
+			Assert::IsFalse(*myBoolean);
 		}
 	};
 }

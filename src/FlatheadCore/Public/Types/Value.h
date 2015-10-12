@@ -7,7 +7,8 @@ namespace Gneu
 		class Value
 		{
 		public:
-			virtual bool IsBoolean() const;
+			virtual bool IsBoolean() const; 
+			virtual bool IsUndefined() const;
 		};
 	}
 }

@@ -229,8 +229,10 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Private\Types\Impl\BooleanIMPL.h" />
     <ClInclude Include="Private\Interfaces\ConsoleInterfaces.h" />
     <ClInclude Include="Private\Interfaces\ModuleInterfaces.h" />
+    <ClInclude Include="Private\Types\Impl\PrimitiveIMPL.h" />
     <ClInclude Include="Public\API.h" />
     <ClInclude Include="Public\Enumerations\LogLevels.h" />
     <ClInclude Include="Public\Enumerations\PrimitiveTypeFlags.h" />
@@ -238,6 +240,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="Public\stdafx.h" />
     <ClInclude Include="Public\targetver.h" />
     <ClInclude Include="Public\Types\Boolean.h" />
+    <ClInclude Include="Public\Types\Primitive.h" />
     <ClInclude Include="Public\Types\Translate.h" />
     <ClInclude Include="Public\Types\Value.h" />
     <ClInclude Include="Public\Utility\Configuration.h" />
@@ -245,9 +248,12 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Private\Types\Impl\BooleanIMPL.cpp" />
     <ClCompile Include="Private\Flathead.cpp" />
     <ClCompile Include="Private\Interfaces\ModuleInterfaces.cpp" />
     <ClCompile Include="Private\Types\Boolean.cpp" />
+    <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp" />
+    <ClCompile Include="Private\Types\Primitive.cpp" />
     <ClCompile Include="Private\Types\Translate.cpp" />
     <ClCompile Include="Private\Types\Value.cpp" />
     <ClCompile Include="Private\Utility\ArrayBufferAllocator.cpp" />

@@ -1,14 +1,15 @@
 #pragma once
 
-#include "Types/Value.h"
+#include "Types/Primitive.h"
 
 namespace Gneu
 {
 	namespace Types
 	{
-		class Boolean : public Value
+		class Boolean : public Primitive
 		{
-			bool IsBoolean() const override;
+		public:
+			virtual operator bool() const = 0;
 		};
 	}
 }

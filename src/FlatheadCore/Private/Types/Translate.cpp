@@ -4,12 +4,18 @@
 
 #include "Types/Value.h"
 #include "Types/Translate.h"
-#include "Types/Boolean.h"
+#include "Impl/BooleanIMPL.h"
+#include "Impl/PrimitiveIMPL.h"
 
 using namespace v8;
 using namespace Gneu::Types;
 
-Gneu::Types::Value *Translate::ToFlathead(v8::Handle<v8::Value>)
+Gneu::Types::Value *Translate::ToFlathead(v8::Handle<v8::Value> v8Value)
 {
-	return new Gneu::Types::Boolean();
+	if (v8Value->IsBoolean())
+	{
+		return new Gneu::Types::BooleanIMPL(v8Value);
+	}
+
+	return new Gneu::Types::PrimitiveIMPL(v8Value);
 }

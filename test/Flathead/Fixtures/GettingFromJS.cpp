@@ -3,6 +3,7 @@
 
 #include "Flathead.h"
 #include "RequiresFlathead.h"
+#include "Types/Value.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -11,6 +12,16 @@ namespace Gneu
 	TEST_CLASS(GettingFromJSTests), RequiresFlathead
 	{
 	public:
+		TEST_CLASS_INITIALIZE(InitializeConsoleTests)
+		{
+			SetupFlathead();
+		}
+
+		TEST_CLASS_CLEANUP(CleanupConsoleTests)
+		{
+			CleanupFlathead();
+		}
+
 		TEST_METHOD(ShouldHaveGetMethod)
 		{
 			pFH->Get("MyVar");
@@ -18,7 +29,15 @@ namespace Gneu
 
 		TEST_METHOD(GetMethodShouldReturnPointer)
 		{
-			Assert::IsNotNull(pFH->Get("MyVar"));
+			Assert::IsNotNull(pFH->Get("v8"));
+		}
+
+		TEST_METHOD(UndefinedTypesShouldBeUndefined)
+		{
+			const Types::Value *pValue = pFH->Get("MyUndefinedVar");
+
+			Assert::IsNotNull(pValue);
+			Assert::IsTrue(pValue->IsUndefined());
 		}
 	};
 }
