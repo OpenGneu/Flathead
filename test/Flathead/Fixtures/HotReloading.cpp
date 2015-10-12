@@ -11,23 +11,16 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Gneu
 {
-	TEST_CLASS(HotReloadingTests), RequiresFlathead
+	TEST_CLASS(HotReloadingTests)
 	{
 		char buffer[2048];
 
 	public:
-		TEST_CLASS_INITIALIZE(InitializeHotReloadingTests)
-		{
-			SetupFlathead();
-		}
-
-		TEST_CLASS_CLEANUP(CleanupHotReloadingTests)
-		{
-			CleanupFlathead();
-		}
 
 		TEST_METHOD(FlatheadObjectShouldBeDefined)
 		{
+			Flathead *pFH = new Flathead();
+
 			WriteToFile("lib/HotReload.js", "");
 
 			pFH->Execute("JSON.stringify(require('./HotReload'));", buffer);
@@ -43,13 +36,17 @@ namespace Gneu
 			pFH->Execute("JSON.stringify(require('./HotReload'));", buffer);
 
 			Assert::AreEqual("{\"value\":{\"test\":42}}", buffer);
+
+			delete pFH;
 		}
 
 		TEST_METHOD(ShouldProvideUnloadFunctionForHotSwapping)
 		{
+			Flathead *pFH = new Flathead();
+
 			bool unloaded = false;
 
-			WriteToFile("lib/HotUnload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.unloaded = true; }");
+			WriteToFile("lib/HotUnload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.UnloadCalled = true; }");
 
 			pFH->Execute("require('./HotUnload').value;", unloaded);
 
@@ -57,40 +54,44 @@ namespace Gneu
 
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 
-			WriteToFile("lib/HotUnload.js", "exports.value = this.unloaded;");
+			WriteToFile("lib/HotUnload.js", "exports.value = this.UnloadCalled;");
 
 			pFH->Tick(1.0f);
 
 			pFH->Execute("require('./HotUnload').value;", unloaded);
 
 			Assert::IsTrue(unloaded);
+
+			delete pFH;
 		}
 
 		TEST_METHOD(ShouldBeDisabledWhenConfiguredAsSuch)
 		{
-			bool unloaded = false;
+			bool reloaded = false;
 
 			Configuration cfg;
 
 			cfg.EnableHotReload(false);
 
-			Flathead *fh = new Flathead(cfg);
+			Flathead *pFH = new Flathead(cfg);
 
-			WriteToFile("lib/DontReload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.unloaded = true; }");
+			WriteToFile("lib/DontReload.js", "exports.value = false;");
 
-			pFH->Execute("require('./DontReload').value;", unloaded);
+			pFH->Execute("require('./DontReload').value;", reloaded);
 
-			Assert::IsFalse(unloaded);
+			Assert::IsFalse(reloaded);
 
 			std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
 
-			WriteToFile("lib/DontReload.js", "exports.value = this.unloaded;");
+			WriteToFile("lib/DontReload.js", "exports.value = true;");
 
 			pFH->Tick(1.0f);
 
-			pFH->Execute("require('./DontReload').value;", unloaded);
+			pFH->Execute("require('./DontReload').value;", reloaded);
 
-			Assert::IsFalse(unloaded);
+			Assert::IsFalse(reloaded);
+
+			delete pFH;
 		}
 
 		void WriteToFile(char *fileName, char *output)
