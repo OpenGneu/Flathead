@@ -1,8 +1,9 @@
 // Copyright 2015 Gneu LLC. All Rights Reserved.
 
-#include "Utility/Configuration.h"
-
 #include "API.h"
+
+#include "Utility/Configuration.h"
+#include "Types/Value.h"
 
 #pragma once
 
@@ -26,6 +27,8 @@ namespace Gneu
 
 		void CleanupV8();
 		void Tick(float delta);
+
+		Types::Value *Get(char *);
 
 		void Execute(char *input, char *output);
 

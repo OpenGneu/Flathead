@@ -178,10 +178,12 @@
     <ClCompile Include="Fixtures\Flathead.cpp" />
     <ClCompile Include="Fixtures\FlatheadExecute.cpp" />
     <ClCompile Include="Fixtures\FlatheadJS.cpp" />
+    <ClCompile Include="Fixtures\GettingFromJS.cpp" />
     <ClCompile Include="Fixtures\HotReloading.cpp" />
     <ClCompile Include="Fixtures\Module.cpp" />
     <ClCompile Include="Fixtures\SetTimeout.cpp" />
     <ClCompile Include="Fixtures\RequiresFlathead.cpp" />
+    <ClCompile Include="Fixtures\Types\BooleanTests.cpp" />
     <ClCompile Include="Fixtures\V8JS.cpp" />
     <ClCompile Include="Fixtures\V8Flags.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -14,6 +14,9 @@
 #include "v8.h"
 #include "libplatform/libplatform.h"
 
+#include "Types/Value.h"
+#include "Types/Translate.h"
+
 using namespace Gneu;
 using namespace Gneu::Utility;
 using namespace Gneu::Interfaces;
@@ -409,4 +412,13 @@ void Flathead::JSTick(float delta)
 	};
 
 	func->Call(context->Global(), sizeof(args) / sizeof(args[0]), args);
+}
+
+Types::Value *Flathead::Get(char *name)
+{
+	INITIALIZE_SCOPE();
+
+	Local<Value> result = context->Global()->Get(v8::String::NewFromUtf8(g_CurrentVM, name));
+
+	return Types::Translate::ToFlathead(result);
 }
