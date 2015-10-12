@@ -66,6 +66,12 @@
     <ClInclude Include="Private\Types\Impl\PrimitiveIMPL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Types\String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Types\Impl\StringIMPL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,6 +102,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Impl\StringIMPL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
