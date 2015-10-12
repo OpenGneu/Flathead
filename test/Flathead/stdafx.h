@@ -16,6 +16,7 @@ extern int g_Type;
 extern char g_Buffer[];
 
 void TrackingLoggingFn(int type, const char *msg);
+void WriteToFile(char *fileName, char *output);
 void ResetTracking();
 
 #pragma comment(lib, "WINMM.LIB")

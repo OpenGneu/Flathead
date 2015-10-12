@@ -93,20 +93,5 @@ namespace Gneu
 
 			delete pFH;
 		}
-
-		void WriteToFile(char *fileName, char *output)
-		{
-			FILE* file;
-
-			if (fopen_s(&file, fileName, "w"))
-			{
-				Assert::Fail(L"Could not write to file.");
-				return; 
-			}
-
-			fprintf(file, output);
-
-			fclose(file);
-		}
 	};
 }

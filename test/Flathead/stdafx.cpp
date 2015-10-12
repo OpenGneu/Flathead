@@ -25,3 +25,18 @@ void ResetTracking()
 	g_Type = -1;
 	strncpy_s(g_Buffer, "", _TRUNCATE);
 }
+
+void WriteToFile(char *fileName, char *output)
+{
+	FILE* file;
+
+	if (fopen_s(&file, fileName, "w"))
+	{
+		Assert::Fail(L"Could not write to file.");
+		return;
+	}
+
+	fprintf(file, output);
+
+	fclose(file);
+}
