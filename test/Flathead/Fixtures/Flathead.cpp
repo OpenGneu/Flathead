@@ -32,6 +32,25 @@ namespace Gneu
 			Assert::IsNotNull(fh.GetConfiguration());
 		}
 
+		TEST_METHOD(ShouldTrapMissingBootstrapAtInitialization)
+		{
+			bool exceptionThrown = false;
+
+			Configuration cfg;
+			cfg.Bootstrap("");
+
+			try
+			{
+				Flathead fh(cfg);
+			}
+			catch (int ex) // TODO: Index to be defined
+			{
+				exceptionThrown = true;
+			}
+
+			Assert::IsTrue(exceptionThrown);
+		}
+
 		TEST_METHOD(ShouldRetainACopyOfTheConfigurationObject)
 		{
 			Configuration cfg;

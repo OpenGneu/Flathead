@@ -150,8 +150,9 @@ void Flathead::PreloadCore()
 
 		if (fopen_s(&file, GetConfiguration()->Bootstrap(), "rb"))
 		{
-			perror("Could not load bootstrap file.");
-			return; 
+			throw 1;
+			// perror("Could not load bootstrap file.");
+			// return; 
 		}
 
 		fseek(file, 0, SEEK_END);
