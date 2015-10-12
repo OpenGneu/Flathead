@@ -66,5 +66,6 @@
   <ItemGroup>
     <None Include="lib\sampleModule.js" />
     <None Include="lib\sampleJSON.json" />
+    <None Include="lib\emptyBootstrap.js" />
   </ItemGroup>
 </Project>

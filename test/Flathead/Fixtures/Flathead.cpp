@@ -37,7 +37,26 @@ namespace Gneu
 			bool exceptionThrown = false;
 
 			Configuration cfg;
-			cfg.Bootstrap("");
+			cfg.Bootstrap("lib/missingFile.js");
+
+			try
+			{
+				Flathead fh(cfg);
+			}
+			catch (int ex) // TODO: Index to be defined
+			{
+				exceptionThrown = true;
+			}
+
+			Assert::IsTrue(exceptionThrown);
+		}
+
+		TEST_METHOD(ShouldTrapEmptyBootstrapAtInitialization)
+		{
+			bool exceptionThrown = false;
+
+			Configuration cfg;
+			cfg.Bootstrap("lib/emptyBootstrap.js");
 
 			try
 			{

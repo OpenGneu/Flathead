@@ -20,6 +20,10 @@ namespace Gneu
 		Configuration *GetConfiguration(); 
 
 		void InitializeV8();
+
+		void InitializeGlobalContext();
+		void PreloadCore();
+
 		void CleanupV8();
 		void Tick(float delta);
 
@@ -34,9 +38,6 @@ namespace Gneu
 
 	protected:
 		void HandleV8Flags();
-
-		void InitializeGlobalContext(); 
-		void PreloadCore();
 
 		void JSTick(float delta);
 

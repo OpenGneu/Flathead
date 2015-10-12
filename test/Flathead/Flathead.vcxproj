@@ -203,14 +203,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="lib\emptyBootstrap.js" />
     <None Include="lib\sampleJSON.json" />
-    <None Include="lib\sampleModule.js">
-      <FileType>Script</FileType>
-      <DeploymentContent>false</DeploymentContent>
-    </None>
+    <None Include="lib\sampleModule.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\sampleJSON.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\emptyBootstrap.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\sampleModule.js">

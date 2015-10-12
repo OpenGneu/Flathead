@@ -54,6 +54,9 @@ FH_API Flathead::Flathead()
 	if (configuration->ShouldInitializeImmediately())
 	{
 		InitializeV8();
+
+		InitializeGlobalContext();
+		PreloadCore();
 	}
 }
 
@@ -64,6 +67,9 @@ FH_API Flathead::Flathead(Configuration &cfg)
 	if (configuration->ShouldInitializeImmediately())
 	{
 		InitializeV8();
+
+		InitializeGlobalContext();
+		PreloadCore();
 	}
 }
 
@@ -128,9 +134,6 @@ FH_API void Flathead::InitializeV8()
 	{
 		perror("Failed to create a new VM");
 	}
-
-	InitializeGlobalContext();
-	PreloadCore();
 }
 
 void Flathead::PreloadCore()
@@ -148,6 +151,7 @@ void Flathead::PreloadCore()
 	{
 		FILE* file;
 
+		// Trapping incorrect path or missing file (which is practically the same damned thing!)
 		if (fopen_s(&file, GetConfiguration()->Bootstrap(), "rb"))
 		{
 			throw 1;
@@ -164,6 +168,12 @@ void Flathead::PreloadCore()
 		result[size] = '\0';
 		int read = static_cast<int>(fread_s(result, size, 1, size, file));
 		fclose(file);
+
+		// Trapping empty bootstrap file
+		if (read == 0)
+		{
+			throw 2;
+		}
 		
 		Local<String> name = String::NewFromUtf8(g_CurrentVM, GetConfiguration()->Bootstrap(), NewStringType::kNormal).ToLocalChecked();
 		ScriptOrigin origin(name);
