@@ -21,6 +21,9 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Fixtures\RequiresFlathead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -56,13 +59,7 @@
     <ClCompile Include="Fixtures\HotReloading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Fixtures\Types\ExposingValues.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fixtures\Types\DefiningPrimitives.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fixtures\Types\DefiningBooleans.cpp">
+    <ClCompile Include="Fixtures\RequiresFlathead.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

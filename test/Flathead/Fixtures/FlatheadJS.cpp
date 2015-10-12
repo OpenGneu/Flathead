@@ -2,26 +2,26 @@
 #include "CppUnitTest.h"
 
 #include "Flathead.h"
+#include "RequiresFlathead.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Gneu
 {
-	TEST_CLASS(FlatheadJSTests)
+	TEST_CLASS(FlatheadJSTests), RequiresFlathead
 	{
-		static Flathead *pFH;
 
 	public:
 		TEST_CLASS_INITIALIZE(InitializeFlatheadJSTests)
 		{
-			pFH = new Flathead();
-		}
-		
-		TEST_CLASS_CLEANUP(CleanupFlatheadJSTests)
-		{
-			delete pFH;
+			SetupFlathead();
 		}
 
+		TEST_CLASS_CLEANUP(CleanupFlatheadJSTests)
+		{
+			CleanupFlathead();
+		}
+		
 		TEST_METHOD(FlatheadObjectShouldBeDefined)
 		{
 			char buffer[4096];
@@ -98,5 +98,4 @@ namespace Gneu
 			Assert::AreEqual("string", buffer);
 		}
 	};
-	Flathead *FlatheadJSTests::pFH = NULL;
 }

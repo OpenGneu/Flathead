@@ -2,34 +2,27 @@
 #include "CppUnitTest.h"
 
 #include "Flathead.h"
+#include "RequiresFlathead.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Gneu
 {
-	TEST_CLASS(SetTimeoutTests)
+	TEST_CLASS(SetTimeoutTests), RequiresFlathead
 	{
-		static Flathead *pFH;
 		char buffer[2048];
 
 	public:
-		TEST_CLASS_INITIALIZE(InitializeSetTimeoutTests)
-		{
-			Configuration cfg;
-
-			cfg.LoggingFn(TrackingLoggingFn);
-
-			pFH = new Flathead(cfg);
-		}
-
-		TEST_CLASS_CLEANUP(CleanupSetTimeoutTests)
-		{
-			delete pFH;
-		}
 
 		TEST_METHOD_INITIALIZE(InitializeSetTimeoutMethodTests)
 		{
 			ResetTracking();
+			SetupFlathead();
+		}
+
+		TEST_CLASS_CLEANUP(CleanupSetTimeoutMethodTests)
+		{
+			CleanupFlathead();
 		}
 
 		TEST_METHOD(SetTimeoutFunctionShouldBeDefined)
@@ -162,6 +155,4 @@ namespace Gneu
 			Assert::AreEqual("5", buffer);
 		}
 	};
-
-	Flathead *SetTimeoutTests::pFH = NULL;
 }

@@ -4,7 +4,6 @@
 #include "Flathead.h"
 #include "Interfaces/ConsoleInterfaces.h"
 #include "Interfaces/ModuleInterfaces.h"
-#include "libplatform/libplatform.h"
 
 #include "Utility/ArrayBufferAllocator.h"
 
@@ -13,6 +12,7 @@
 #include <string.h>
 
 #include "v8.h"
+#include "libplatform/libplatform.h"
 
 using namespace Gneu;
 using namespace Gneu::Utility;

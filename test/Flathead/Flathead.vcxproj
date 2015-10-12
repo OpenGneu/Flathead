@@ -76,25 +76,29 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -165,13 +169,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Fixtures\RequiresFlathead.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fixtures\Types\DefiningBooleans.cpp" />
-    <ClCompile Include="Fixtures\Types\DefiningPrimitives.cpp" />
-    <ClCompile Include="Fixtures\Types\ExposingValues.cpp" />
     <ClCompile Include="Fixtures\Console.cpp" />
     <ClCompile Include="Fixtures\Flathead.cpp" />
     <ClCompile Include="Fixtures\FlatheadExecute.cpp" />
@@ -179,6 +181,7 @@
     <ClCompile Include="Fixtures\HotReloading.cpp" />
     <ClCompile Include="Fixtures\Module.cpp" />
     <ClCompile Include="Fixtures\SetTimeout.cpp" />
+    <ClCompile Include="Fixtures\RequiresFlathead.cpp" />
     <ClCompile Include="Fixtures\V8JS.cpp" />
     <ClCompile Include="Fixtures\V8Flags.cpp" />
     <ClCompile Include="stdafx.cpp">
