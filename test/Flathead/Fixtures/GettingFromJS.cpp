@@ -40,6 +40,20 @@ namespace Gneu
 			Assert::IsTrue(pValue->IsUndefined());
 		}
 
+		TEST_METHOD(BoolsTypesShouldBeBools)
+		{
+			bool tmp;
+
+			pFH->Execute("myBooleanVar = true;", tmp);
+
+			const Types::Value *pValue = pFH->Get("myBooleanVar");
+
+			Assert::IsNotNull(pValue);
+			Assert::IsFalse(pValue->IsUndefined());
+			Assert::IsFalse(pValue->IsNull());
+			Assert::IsTrue(pValue->IsBoolean());
+		}
+
 		TEST_METHOD(NullTypesShouldBeNull)
 		{
 			bool tmp;
