@@ -9,6 +9,7 @@ namespace Gneu
 		public:
 			virtual bool IsBoolean() const; 
 			virtual bool IsUndefined() const;
+			virtual bool IsNull() const;
 		};
 	}
 }

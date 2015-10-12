@@ -14,6 +14,7 @@ namespace Gneu
 			PrimitiveIMPL(v8::Handle<v8::Value>);
 
 			bool IsUndefined() const override;
+			bool IsNull() const override;
 
 		private:
 			v8::Persistent<v8::Value> persisted_value;

@@ -13,3 +13,8 @@ bool Value::IsUndefined() const
 {
 	return false;
 }
+
+bool Value::IsNull() const
+{
+	return false;
+}

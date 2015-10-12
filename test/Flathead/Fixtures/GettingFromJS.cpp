@@ -39,5 +39,18 @@ namespace Gneu
 			Assert::IsNotNull(pValue);
 			Assert::IsTrue(pValue->IsUndefined());
 		}
+
+		TEST_METHOD(NullTypesShouldBeNull)
+		{
+			bool tmp;
+
+			pFH->Execute("myNullVar = null;", tmp);
+
+			const Types::Value *pValue = pFH->Get("myNullVar");
+
+			Assert::IsNotNull(pValue);
+			Assert::IsFalse(pValue->IsUndefined());
+			Assert::IsTrue(pValue->IsNull());
+		}
 	};
 }

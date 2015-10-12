@@ -25,3 +25,15 @@ bool PrimitiveIMPL::IsUndefined() const
 
 	return value->IsUndefined();
 }
+
+bool PrimitiveIMPL::IsNull() const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Value> value = Handle<v8::Value>::New(g_CurrentVM, persisted_value);
+
+	return value->IsNull();
+}
