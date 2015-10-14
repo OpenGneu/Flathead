@@ -10,6 +10,9 @@ For more information about how to maintain this document, [please keep a changel
 * Module hot swapping 
 * Provided unload event for hot swapping
 * EnableHotReloading flag is reflected in behavior of bootstrapping
+* Can retrieve all types from JS land
+* Boolean types have specific subclass to retrieve value
+* String types have specific subclass to retrieve value
 
 ## [2.1.1][2.1.1]
 
