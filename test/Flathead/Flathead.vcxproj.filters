@@ -71,6 +71,9 @@
     <ClCompile Include="Fixtures\Types\StringTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Fixtures\Types\NumberTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\sampleModule.js" />
