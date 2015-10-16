@@ -28,5 +28,12 @@ Gneu::Types::BooleanIMPL::operator bool() const
 
 bool BooleanIMPL::IsBoolean() const
 {
-	return true;
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Boolean> boolValue = Handle<v8::Boolean>::New(g_CurrentVM, persisted_value);
+
+	return boolValue->IsBoolean();
 }
