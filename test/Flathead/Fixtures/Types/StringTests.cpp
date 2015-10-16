@@ -23,7 +23,7 @@ namespace Gneu
 			CleanupFlathead();
 		}
 
-		TEST_METHOD(ShouldBeAbleToCreateAString)
+		TEST_METHOD(ShouldBeAbleToRetrieveAString)
 		{
 			bool tmp;
 			pFH->Execute("myStringValue = 'testValue';", tmp);
@@ -54,6 +54,80 @@ namespace Gneu
 			myString->UTF8Value(buffer);
 
 			Assert::AreEqual("testValue", buffer);
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToRetrieveLength)
+		{
+			bool tmp;
+			pFH->Execute("myStringValue = 'testValue';", tmp);
+
+			Types::String *myString = (Types::String *)pFH->Get("myStringValue");
+
+			Assert::IsNotNull(myString);
+
+			Assert::AreEqual(9, myString->Length());
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToEquateUTF8Strings)
+		{
+			bool tmp;
+			pFH->Execute("myStringValue = 'testValue';", tmp);
+
+			Types::String *myString = (Types::String *)pFH->Get("myStringValue");
+
+			Assert::IsNotNull(myString);
+
+			Assert::IsTrue(myString->Equals("testValue"));
+			Assert::IsFalse(myString->Equals("somethingElse"));
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToStrictlyEquateUTF16Strings)
+		{
+			bool tmp;
+			pFH->Execute("myStringValue = 'testValue';", tmp);
+
+			Types::String *myString = (Types::String *)pFH->Get("myStringValue");
+
+			Assert::IsNotNull(myString);
+
+			Assert::IsTrue(myString->StrictEquals(L"testValue"));
+			Assert::IsFalse(myString->StrictEquals(L"somethingElse"));
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToEquateUTF16Strings)
+		{
+			bool tmp;
+			pFH->Execute("myStringValue = 'testValue';", tmp);
+
+			Types::String *myString = (Types::String *)pFH->Get("myStringValue");
+
+			Assert::IsNotNull(myString);
+
+			Assert::IsTrue(myString->Equals(L"testValue"));
+			Assert::IsFalse(myString->Equals(L"somethingElse"));
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToStrictlyEquateUTF8Strings)
+		{
+			bool tmp;
+			pFH->Execute("myStringValue = 'testValue';", tmp);
+
+			Types::String *myString = (Types::String *)pFH->Get("myStringValue");
+
+			Assert::IsNotNull(myString);
+
+			Assert::IsTrue(myString->StrictEquals("testValue"));
+			Assert::IsFalse(myString->StrictEquals("somethingElse"));
 
 			delete myString;
 		}

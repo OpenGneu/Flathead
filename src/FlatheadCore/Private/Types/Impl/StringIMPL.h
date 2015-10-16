@@ -15,6 +15,14 @@ namespace Gneu
 			void UTF8Value(char *) const;
 			void Value(wchar_t *) const;
 
+			int Length() const;
+
+			bool Equals(char *) const;
+			bool StrictEquals(char *) const;
+
+			bool Equals(wchar_t *) const;
+			bool StrictEquals(wchar_t *) const;
+
 			bool IsString() const override;
 
 		private:

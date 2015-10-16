@@ -19,6 +19,70 @@ bool StringIMPL::IsString() const
 	return true;
 }
 
+bool StringIMPL::Equals(wchar_t *value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> compared = v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)value);
+	Local<v8::String> stringValue = Handle<v8::String>::New(g_CurrentVM, persisted_value);
+
+	return stringValue->Equals(compared);
+}
+
+bool StringIMPL::StrictEquals(wchar_t *value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> compared = v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)value);
+	Local<v8::String> stringValue = Handle<v8::String>::New(g_CurrentVM, persisted_value);
+
+	return stringValue->StrictEquals(compared);
+}
+
+bool StringIMPL::Equals(char *value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> compared = v8::String::NewFromUtf8(g_CurrentVM, value);
+	Local<v8::String> stringValue = Handle<v8::String>::New(g_CurrentVM, persisted_value);
+
+	return stringValue->Equals(compared);
+}
+
+bool StringIMPL::StrictEquals(char *value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> compared = v8::String::NewFromUtf8(g_CurrentVM, value);
+	Local<v8::String> stringValue = Handle<v8::String>::New(g_CurrentVM, persisted_value);
+
+	return stringValue->StrictEquals(compared);
+}
+
+int StringIMPL::Length() const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> stringValue = Handle<v8::String>::New(g_CurrentVM, persisted_value);
+
+	return stringValue->Length();
+}
+
 void StringIMPL::UTF8Value(char *target) const
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);
