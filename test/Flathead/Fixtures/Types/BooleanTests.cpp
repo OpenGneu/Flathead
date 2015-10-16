@@ -23,7 +23,7 @@ namespace Gneu
 			CleanupFlathead();
 		}
 
-		TEST_METHOD(ShouldBeAbleToCreateABoolean)
+		TEST_METHOD(ShouldBeAbleToRetrieveABoolean)
 		{
 			bool myBool;
 			pFH->Execute("myTrueBool = true; myFalseBool = false;", myBool);
