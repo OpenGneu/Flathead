@@ -25,7 +25,7 @@ namespace Gneu
 
 			bool IsString() const override;
 
-		private:
+		protected:
 			v8::Persistent<v8::String> persisted_value;
 		};
 	}

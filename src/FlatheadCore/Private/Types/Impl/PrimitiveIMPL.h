@@ -31,7 +31,7 @@ namespace Gneu
 			bool IsInt32() const override; 
 			bool IsUint32() const override;
 
-		private:
+		protected:
 			v8::Persistent<v8::Value> persisted_value;
 		};
 	}

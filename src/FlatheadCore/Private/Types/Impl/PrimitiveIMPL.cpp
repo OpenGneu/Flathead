@@ -11,7 +11,7 @@ extern Persistent<Context> g_GlobalContext;
 
 PrimitiveIMPL::PrimitiveIMPL(v8::Handle<v8::Value> _value)
 {
-	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::Boolean>::Cast(_value));
+	persisted_value.Reset(g_CurrentVM, _value);
 }
 
 bool PrimitiveIMPL::IsUndefined() const
