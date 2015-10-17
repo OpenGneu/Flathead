@@ -5,6 +5,7 @@
 #include "../RequiresFlathead.h"
 
 #include "Types/Number.h"
+#include "Types/Boolean.h"
 #include "Types/Function.h"
 #include "Types/CallbackInfo.h"
 
@@ -46,28 +47,32 @@ namespace Gneu
 		static int IntDoSomething(Types::CallbackInfo &args)
 		{
 			IntDoSomethingCalled = true;
-			return 0;
+			Types::Number *num = (Types::Number *)args[0];
+			return (int)*num;
 		}
 
 		static bool BoolDoSomethingCalled;
 		static bool BoolDoSomething(Types::CallbackInfo &args)
 		{
 			BoolDoSomethingCalled = true;
-			return false;
+			Types::Boolean *b = (Types::Boolean *)args[0];
+			return *b;
 		}
 
 		static bool DoubleDoSomethingCalled;
 		static double DoubleDoSomething(Types::CallbackInfo &args)
 		{
 			DoubleDoSomethingCalled = true;
-			return 42.0;
+			Types::Number *num = (Types::Number *)args[0];
+			return (double)*num;
 		}
 
 		static bool FloatDoSomethingCalled;
 		static float FloatDoSomething(Types::CallbackInfo &args)
 		{
 			FloatDoSomethingCalled = true;
-			return 42.0f;
+			Types::Number *num = (Types::Number *)args[0];
+			return (float)*num;
 		}
 
 		static bool PointerDoSomethingCalled;
@@ -98,7 +103,7 @@ namespace Gneu
 
 		TEST_METHOD(ShouldBeAbleToSetAVoidFunction)
 		{
-			bool tmp;
+			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::VoidDoSomething);
 
 			Types::Value *MyObjectValue = pFH->Get("myFunc");
@@ -111,12 +116,23 @@ namespace Gneu
 			Assert::IsNotNull(myFunc);
 			Assert::IsTrue(myFunc->IsFunction());
 
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(42.0);", buffer);
+
+			Assert::AreEqual("undefined", buffer);
+
+			Assert::IsTrue(VoidDoSomethingCalled);
+
 			delete myFunc;
 		}
 
 		TEST_METHOD(ShouldBeAbleToSetAnIntFunction)
 		{
-			bool tmp;
+			int result;
+			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::IntDoSomething);
 
 			Types::Value *MyObjectValue = pFH->Get("myFunc");
@@ -129,12 +145,23 @@ namespace Gneu
 			Assert::IsNotNull(myFunc);
 			Assert::IsTrue(myFunc->IsFunction());
 
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(42);", result);
+
+			Assert::AreEqual(42, result);
+
+			Assert::IsTrue(IntDoSomethingCalled);
+
 			delete myFunc;
 		}
 
 		TEST_METHOD(ShouldBeAbleToSetABoolFunction)
 		{
-			bool tmp;
+			bool result;
+			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::BoolDoSomething);
 
 			Types::Value *MyObjectValue = pFH->Get("myFunc");
@@ -147,12 +174,23 @@ namespace Gneu
 			Assert::IsNotNull(myFunc);
 			Assert::IsTrue(myFunc->IsFunction());
 
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(false);", result);
+
+			Assert::IsFalse(result);
+
+			Assert::IsTrue(BoolDoSomethingCalled);
+
 			delete myFunc;
 		}
 
 		TEST_METHOD(ShouldBeAbleToSetADoubleFunction)
 		{
-			bool tmp;
+			float result;
+			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::DoubleDoSomething);
 
 			Types::Value *MyObjectValue = pFH->Get("myFunc");
@@ -165,12 +203,23 @@ namespace Gneu
 			Assert::IsNotNull(myFunc);
 			Assert::IsTrue(myFunc->IsFunction());
 
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(42.0);", result);
+
+			Assert::AreEqual(42.0f, result);
+
+			Assert::IsTrue(DoubleDoSomethingCalled);
+
 			delete myFunc;
 		}
 
 		TEST_METHOD(ShouldBeAbleToSetAFloatFunction)
 		{
-			bool tmp;
+			float result;
+			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::FloatDoSomething);
 
 			Types::Value *MyObjectValue = pFH->Get("myFunc");
@@ -182,6 +231,16 @@ namespace Gneu
 
 			Assert::IsNotNull(myFunc);
 			Assert::IsTrue(myFunc->IsFunction());
+
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(42.0);", result);
+
+			Assert::AreEqual(42.0f, result);
+
+			Assert::IsTrue(FloatDoSomethingCalled);
 
 			delete myFunc;
 		}

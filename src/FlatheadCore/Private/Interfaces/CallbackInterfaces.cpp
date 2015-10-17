@@ -12,26 +12,54 @@ using namespace Gneu::Interfaces;
 
 void CallbackInterfaces::VoidCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	Types::CallbackInfoIMPL cb(args);
+
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::VoidFunction icb = (Types::VoidFunction)ext->Value();
+	
+	icb(cb);
+	
+	args.GetReturnValue().SetUndefined();
 }
 
 void CallbackInterfaces::BoolCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	Types::CallbackInfoIMPL cb(args);
 
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::BoolFunction icb = (Types::BoolFunction)ext->Value();
+
+	args.GetReturnValue().Set((bool)icb(cb));
 }
 
 void CallbackInterfaces::IntCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	Types::CallbackInfoIMPL cb(args);
 
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::IntFunction icb = (Types::IntFunction)ext->Value();
+
+	args.GetReturnValue().Set((int)icb(cb));
 }
 
 void CallbackInterfaces::DoubleCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	Types::CallbackInfoIMPL cb(args);
 
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::DoubleFunction icb = (Types::DoubleFunction)ext->Value();
+
+	args.GetReturnValue().Set((double)icb(cb));
 }
 
 void CallbackInterfaces::FloatCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
+	Types::CallbackInfoIMPL cb(args);
 
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::FloatFunction icb = (Types::FloatFunction)ext->Value();
+
+	args.GetReturnValue().Set((float)icb(cb));
 }
 
 void CallbackInterfaces::VoidPointerCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
