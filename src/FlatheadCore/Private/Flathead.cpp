@@ -422,3 +422,31 @@ Types::Value *Flathead::Get(char *name)
 
 	return Types::Translate::ToFlathead(result);
 }
+
+bool Flathead::Set(char *key, char *value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::String::NewFromUtf8(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, double value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, int value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Integer::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, bool value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}

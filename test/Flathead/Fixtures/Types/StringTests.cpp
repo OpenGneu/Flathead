@@ -51,7 +51,7 @@ namespace Gneu
 
 			Assert::IsNotNull(myString);
 
-			myString->UTF8Value(buffer);
+			myString->Value(buffer);
 
 			Assert::AreEqual("testValue", buffer);
 
@@ -145,6 +145,23 @@ namespace Gneu
 			myString->Value(buffer);
 
 			Assert::AreEqual(L"testValue", buffer);
+
+			delete myString;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAString)
+		{
+			char buffer[128] = { 0 };
+
+			pFH->Set("myVar", "myStringValue");
+
+			Types::String *myString = (Types::String *)pFH->Get("myVar");
+
+			Assert::IsNotNull(myString);
+
+			myString->Value(buffer);
+
+			Assert::AreEqual("myStringValue", buffer);
 
 			delete myString;
 		}

@@ -9,7 +9,7 @@ namespace Gneu
 		class String : public Primitive
 		{
 		public:
-			virtual void UTF8Value(char *) const = 0;
+			virtual void Value(char *) const = 0;
 			virtual void Value(wchar_t *) const = 0;
 
 			virtual int Length() const = 0;

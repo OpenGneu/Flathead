@@ -83,7 +83,7 @@ int StringIMPL::Length() const
 	return stringValue->Length();
 }
 
-void StringIMPL::UTF8Value(char *target) const
+void StringIMPL::Value(char *target) const
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);
 	HandleScope handle_scope(g_CurrentVM);

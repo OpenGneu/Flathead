@@ -29,6 +29,10 @@ namespace Gneu
 		void Tick(float delta);
 
 		Types::Value *Get(char *);
+		bool Set(char *, char *);
+		bool Set(char *, double);
+		bool Set(char *, int);
+		bool Set(char *, bool);
 
 		void Execute(char *input, char *output);
 

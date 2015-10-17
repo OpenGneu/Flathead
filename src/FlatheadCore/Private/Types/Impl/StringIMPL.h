@@ -12,7 +12,7 @@ namespace Gneu
 		public:
 			StringIMPL(v8::Handle<v8::Value>);
 
-			void UTF8Value(char *) const;
+			void Value(char *) const;
 			void Value(wchar_t *) const;
 
 			int Length() const;

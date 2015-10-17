@@ -23,7 +23,11 @@ namespace Gneu
 			bool IsStringObject() const override;
 			bool IsSymbol() const override;
 
-			Value *Get(char *) const;
+			Value *Get(char *) const; 
+			bool Set(char *, char *) const;
+			bool Set(char *, double) const;
+			bool Set(char *, int) const;
+			bool Set(char *, bool) const;
 
 		protected:
 			v8::Persistent<v8::Object> persisted_value;

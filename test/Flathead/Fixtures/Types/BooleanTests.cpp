@@ -49,5 +49,23 @@ namespace Gneu
 			Assert::IsTrue(myBoolean->IsBoolean());
 			Assert::IsFalse(*myBoolean);
 		}
+
+		TEST_METHOD(ShouldBeAbleToSetABool)
+		{
+			pFH->Set("myVar", true);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsBoolean());
+
+			Types::Boolean *myBoolean = (Types::Boolean *)myReturnValue;
+
+			Assert::IsNotNull(myBoolean);
+			Assert::IsTrue(myBoolean->IsBoolean());
+			Assert::IsTrue(*myBoolean);
+
+			delete myBoolean;
+		}
 	};
 }

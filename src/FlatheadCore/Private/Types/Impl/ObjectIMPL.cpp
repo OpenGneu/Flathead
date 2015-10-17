@@ -149,3 +149,50 @@ Gneu::Types::Value *ObjectIMPL::Get(char *name) const
 	return Types::Translate::ToFlathead(result);
 }
 
+bool ObjectIMPL::Set(char *key, char *value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	return obj->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::String::NewFromUtf8(g_CurrentVM, value));
+}
+
+bool ObjectIMPL::Set(char *key, double value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	return obj->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, value));
+}
+
+bool ObjectIMPL::Set(char *key, int value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	return obj->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Integer::New(g_CurrentVM, value));
+}
+
+bool ObjectIMPL::Set(char *key, bool value) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	return obj->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}
