@@ -185,6 +185,7 @@
     <ClCompile Include="Fixtures\RequiresFlathead.cpp" />
     <ClCompile Include="Fixtures\Types\BooleanTests.cpp" />
     <ClCompile Include="Fixtures\Types\NumberTests.cpp" />
+    <ClCompile Include="Fixtures\Types\ObjectTests.cpp" />
     <ClCompile Include="Fixtures\Types\StringTests.cpp" />
     <ClCompile Include="Fixtures\V8JS.cpp" />
     <ClCompile Include="Fixtures\V8Flags.cpp" />

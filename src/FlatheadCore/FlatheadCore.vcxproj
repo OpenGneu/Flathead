@@ -233,6 +233,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="Private\Interfaces\ConsoleInterfaces.h" />
     <ClInclude Include="Private\Interfaces\ModuleInterfaces.h" />
     <ClInclude Include="Private\Types\Impl\NumberIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\ObjectIMPL.h" />
     <ClInclude Include="Private\Types\Impl\PrimitiveIMPL.h" />
     <ClInclude Include="Private\Types\Impl\StringIMPL.h" />
     <ClInclude Include="Public\API.h" />
@@ -243,6 +244,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="Public\targetver.h" />
     <ClInclude Include="Public\Types\Boolean.h" />
     <ClInclude Include="Public\Types\Number.h" />
+    <ClInclude Include="Public\Types\Object.h" />
     <ClInclude Include="Public\Types\Primitive.h" />
     <ClInclude Include="Public\Types\String.h" />
     <ClInclude Include="Public\Types\Translate.h" />
@@ -256,6 +258,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClCompile Include="Private\Flathead.cpp" />
     <ClCompile Include="Private\Interfaces\ModuleInterfaces.cpp" />
     <ClCompile Include="Private\Types\Impl\NumberIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\ObjectIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\StringIMPL.cpp" />
     <ClCompile Include="Private\Types\Translate.cpp" />

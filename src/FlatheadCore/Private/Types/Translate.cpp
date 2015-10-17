@@ -7,6 +7,7 @@
 #include "Impl/BooleanIMPL.h"
 #include "Impl/PrimitiveIMPL.h"
 #include "Impl/StringIMPL.h"
+#include "Impl/ObjectIMPL.h"
 #include "Impl/NumberIMPL.h"
 
 using namespace v8;
@@ -27,6 +28,11 @@ Gneu::Types::Value *Translate::ToFlathead(v8::Handle<v8::Value> v8Value)
 	if (v8Value->IsNumber())
 	{
 		return new Gneu::Types::NumberIMPL(v8Value);
+	}
+
+	if (v8Value->IsObject())
+	{
+		return new Gneu::Types::ObjectIMPL(v8Value);
 	}
 
 	return new Gneu::Types::PrimitiveIMPL(v8Value);

@@ -78,6 +78,12 @@
     <ClInclude Include="Private\Types\Impl\NumberIMPL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Types\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Private\Types\Impl\ObjectIMPL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -114,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Private\Types\Impl\NumberIMPL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Impl\ObjectIMPL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
