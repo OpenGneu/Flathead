@@ -14,7 +14,7 @@ BooleanIMPL::BooleanIMPL(v8::Handle<v8::Value> _value)
 	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::Boolean>::Cast(_value));
 }
 
-Gneu::Types::BooleanIMPL::operator bool() const
+BooleanIMPL::operator bool() const
 {
 	Isolate::Scope isolate_scope(g_CurrentVM); 
 	HandleScope handle_scope(g_CurrentVM); 
