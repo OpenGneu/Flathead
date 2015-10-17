@@ -4,6 +4,7 @@
 
 #include "Utility/Configuration.h"
 #include "Types/Value.h"
+#include "Types/Function.h"
 
 #pragma once
 
@@ -33,7 +34,13 @@ namespace Gneu
 		bool Set(char *, double);
 		bool Set(char *, int);
 		bool Set(char *, bool);
-
+		bool Set(char *, Types::VoidFunction); 
+		bool Set(char *, Types::BoolFunction);
+		bool Set(char *, Types::DoubleFunction);
+		bool Set(char *, Types::FloatFunction);
+		bool Set(char *, Types::IntFunction);
+		bool Set(char *, Types::VoidPFunction);
+		
 		void Execute(char *input, char *output);
 
 		void Execute(char *input, bool &output);

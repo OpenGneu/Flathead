@@ -4,6 +4,7 @@
 #include "Flathead.h"
 #include "Interfaces/ConsoleInterfaces.h"
 #include "Interfaces/ModuleInterfaces.h"
+#include "Interfaces/CallbackInterfaces.h"
 
 #include "Utility/ArrayBufferAllocator.h"
 
@@ -449,4 +450,70 @@ bool Flathead::Set(char *key, bool value)
 	INITIALIZE_SCOPE();
 
 	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, Types::VoidFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::BoolFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::BoolCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::DoubleFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::DoubleCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::FloatFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::FloatCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::IntFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::IntCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::VoidPFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidPointerCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Types/Primitive.h"
-#include "Enumerations/PrimitiveTypeFlags.h"
 #include "v8.h"
 
 namespace Gneu

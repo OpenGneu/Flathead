@@ -229,20 +229,23 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Private\Interfaces\CallbackInterfaces.h" />
     <ClInclude Include="Private\Types\Impl\BooleanIMPL.h" />
     <ClInclude Include="Private\Interfaces\ConsoleInterfaces.h" />
     <ClInclude Include="Private\Interfaces\ModuleInterfaces.h" />
+    <ClInclude Include="Private\Types\Impl\CallbackInfoIMPL.h" />
     <ClInclude Include="Private\Types\Impl\NumberIMPL.h" />
     <ClInclude Include="Private\Types\Impl\ObjectIMPL.h" />
     <ClInclude Include="Private\Types\Impl\PrimitiveIMPL.h" />
     <ClInclude Include="Private\Types\Impl\StringIMPL.h" />
     <ClInclude Include="Public\API.h" />
     <ClInclude Include="Public\Enumerations\LogLevels.h" />
-    <ClInclude Include="Public\Enumerations\PrimitiveTypeFlags.h" />
     <ClInclude Include="Public\Flathead.h" />
     <ClInclude Include="Public\stdafx.h" />
     <ClInclude Include="Public\targetver.h" />
     <ClInclude Include="Public\Types\Boolean.h" />
+    <ClInclude Include="Public\Types\CallbackInfo.h" />
+    <ClInclude Include="Public\Types\Function.h" />
     <ClInclude Include="Public\Types\Number.h" />
     <ClInclude Include="Public\Types\Object.h" />
     <ClInclude Include="Public\Types\Primitive.h" />
@@ -254,9 +257,11 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Private\Interfaces\CallbackInterfaces.cpp" />
     <ClCompile Include="Private\Types\Impl\BooleanIMPL.cpp" />
     <ClCompile Include="Private\Flathead.cpp" />
     <ClCompile Include="Private\Interfaces\ModuleInterfaces.cpp" />
+    <ClCompile Include="Private\Types\Impl\CallbackInfoIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\NumberIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\ObjectIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp" />

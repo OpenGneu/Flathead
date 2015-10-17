@@ -184,6 +184,7 @@
     <ClCompile Include="Fixtures\SetTimeout.cpp" />
     <ClCompile Include="Fixtures\RequiresFlathead.cpp" />
     <ClCompile Include="Fixtures\Types\BooleanTests.cpp" />
+    <ClCompile Include="Fixtures\Types\FunctionTests.cpp" />
     <ClCompile Include="Fixtures\Types\NumberTests.cpp" />
     <ClCompile Include="Fixtures\Types\ObjectTests.cpp" />
     <ClCompile Include="Fixtures\Types\StringTests.cpp" />
