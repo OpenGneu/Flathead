@@ -11,8 +11,8 @@ For more information about how to maintain this document, [please keep a changel
 * Provided unload event for hot swapping
 * EnableHotReloading flag is reflected in behavior of bootstrapping
 * Can retrieve all types from JS land
-* Boolean types have specific subclass to retrieve value
-* String types have specific subclass to retrieve value
+* Boolean, String, Number, Object, Function types have specific subclasses to retrieve value
+* Can set and get Objects, Functions, Numbers, Strings, Booleans from native values. 
 
 ## [2.1.1][2.1.1]
 
