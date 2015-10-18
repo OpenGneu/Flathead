@@ -7,7 +7,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class Translate
+		class FH_API Translate
 		{
 		public:
 			static Types::Value *ToFlathead(v8::Handle<v8::Value>);

@@ -6,7 +6,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class Primitive : public Value
+		class FH_API Primitive : public Value
 		{
 		};
 	}

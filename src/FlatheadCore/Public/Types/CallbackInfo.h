@@ -6,7 +6,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class CallbackInfo 
+		class FH_API CallbackInfo
 		{
 		public:
 			virtual Gneu::Types::Value *operator[](int ndx) const = 0;

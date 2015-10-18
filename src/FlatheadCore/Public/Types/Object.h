@@ -14,7 +14,7 @@ namespace Gneu
 		typedef int(*IntFunction)(CallbackInfo &args);
 		typedef void *(*VoidPFunction)(CallbackInfo &args);
 
-		class Object : public Value
+		class FH_API Object : public Value
 		{
 		public:
 			virtual Types::Value *Get(char *) const = 0;

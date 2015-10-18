@@ -4,7 +4,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class Value
+		class FH_API Value
 		{
 		public:
 			virtual bool IsBoolean() const; 
