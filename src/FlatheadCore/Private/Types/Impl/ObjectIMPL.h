@@ -28,6 +28,12 @@ namespace Gneu
 			bool Set(char *, double) const;
 			bool Set(char *, int) const;
 			bool Set(char *, bool) const;
+			bool Set(char *, VoidFunction) const;
+			bool Set(char *, IntFunction) const;
+			bool Set(char *, BoolFunction) const;
+			bool Set(char *, DoubleFunction) const;
+			bool Set(char *, FloatFunction) const;
+			bool Set(char *, VoidPFunction) const;
 
 		protected:
 			v8::Persistent<v8::Object> persisted_value;

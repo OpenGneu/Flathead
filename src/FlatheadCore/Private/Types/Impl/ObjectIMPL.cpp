@@ -3,7 +3,9 @@
 #include "v8.h"
 #include "ObjectIMPL.h"
 #include "Types/Translate.h"
+#include "Private/Interfaces/CallbackInterfaces.h"
 
+using namespace Gneu::Interfaces;
 using namespace Gneu::Types;
 using namespace v8;
 
@@ -195,4 +197,100 @@ bool ObjectIMPL::Set(char *key, bool value) const
 	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
 
 	return obj->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}
+
+bool ObjectIMPL::Set(char *key, VoidFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
+}
+
+bool ObjectIMPL::Set(char *key, IntFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::IntCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
+}
+
+bool ObjectIMPL::Set(char *key, BoolFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::BoolCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
+}
+
+bool ObjectIMPL::Set(char *key, DoubleFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::DoubleCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
+}
+
+bool ObjectIMPL::Set(char *key, FloatFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::FloatCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
+}
+
+bool ObjectIMPL::Set(char *key, VoidPFunction cb) const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidPointerCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return obj->Set(func->GetName(), func);
 }

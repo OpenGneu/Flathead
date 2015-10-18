@@ -26,6 +26,63 @@ namespace Gneu
 			CleanupFlathead();
 		}
 
+		TEST_METHOD_INITIALIZE(MethodInitialize)
+		{
+			VoidDoSomethingCalled = false;
+			IntDoSomethingCalled = false;
+			BoolDoSomethingCalled = false;
+			DoubleDoSomethingCalled = false;
+			FloatDoSomethingCalled = false;
+			PointerDoSomethingCalled = false;
+		}
+
+		static bool VoidDoSomethingCalled;
+		static void VoidDoSomething(Types::CallbackInfo &args)
+		{
+			VoidDoSomethingCalled = true;
+			return;
+		}
+
+		static bool IntDoSomethingCalled;
+		static int IntDoSomething(Types::CallbackInfo &args)
+		{
+			IntDoSomethingCalled = true;
+			Types::Number *num = (Types::Number *)args[0];
+			return (int)*num;
+		}
+
+		static bool BoolDoSomethingCalled;
+		static bool BoolDoSomething(Types::CallbackInfo &args)
+		{
+			BoolDoSomethingCalled = true;
+			Types::Boolean *b = (Types::Boolean *)args[0];
+			return *b;
+		}
+
+		static bool DoubleDoSomethingCalled;
+		static double DoubleDoSomething(Types::CallbackInfo &args)
+		{
+			DoubleDoSomethingCalled = true;
+			Types::Number *num = (Types::Number *)args[0];
+			return (double)*num;
+		}
+
+		static bool FloatDoSomethingCalled;
+		static float FloatDoSomething(Types::CallbackInfo &args)
+		{
+			FloatDoSomethingCalled = true;
+			Types::Number *num = (Types::Number *)args[0];
+			return (float)*num;
+		}
+
+		static bool PointerDoSomethingCalled;
+		static void *PointerDoSomething(Types::CallbackInfo &args)
+		{
+			PointerDoSomethingCalled = true;
+			Types::Number *num = (Types::Number *)args[0];
+			return (void *)(int)(double)*num;
+		}
+
 		TEST_METHOD(ShouldBeAbleToRetrieveAnObject)
 		{
 			bool tmp;
@@ -67,6 +124,237 @@ namespace Gneu
 
 			Assert::IsTrue(myString->IsString());
 			Assert::IsTrue(myString->Equals("value"));
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToGetFunctions)
+		{
+			bool tmp;
+			pFH->Execute("myObject = {test: function () {}};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsNotNull(myObject);
+			Types::Value *myProperty = myObject->Get("test");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetVoidFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("voidCB", &ObjectTests::VoidDoSomething));
+			Types::Value *myProperty = myObject->Get("voidCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.voidCB(42.0);", buffer);
+
+			Assert::AreEqual("undefined", buffer);
+
+			Assert::IsTrue(VoidDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetIntFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("intCB", &ObjectTests::IntDoSomething));
+			Types::Value *myProperty = myObject->Get("intCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.intCB(42.0);", buffer);
+
+			Assert::AreEqual("42", buffer);
+
+			Assert::IsTrue(IntDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetBoolFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("boolCB", &ObjectTests::BoolDoSomething));
+			Types::Value *myProperty = myObject->Get("boolCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.boolCB(42.0);", buffer);
+
+			Assert::AreEqual("true", buffer);
+
+			Assert::IsTrue(BoolDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetDoubleFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("doubleCB", &ObjectTests::DoubleDoSomething));
+			Types::Value *myProperty = myObject->Get("doubleCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.doubleCB(42.0);", buffer);
+
+			Assert::AreEqual("42", buffer);
+
+			Assert::IsTrue(DoubleDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetFloatFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("floatCB", &ObjectTests::FloatDoSomething));
+			Types::Value *myProperty = myObject->Get("floatCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.floatCB(42.0);", buffer);
+
+			Assert::AreEqual("42", buffer);
+
+			Assert::IsTrue(FloatDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetVoidPFunctions)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("voidPCB", &ObjectTests::PointerDoSomething));
+			Types::Value *myProperty = myObject->Get("voidPCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.voidPCB(42.0);", buffer);
+
+			Assert::AreEqual("42", buffer);
+
+			Assert::IsTrue(PointerDoSomethingCalled);
 
 			delete myProperty;
 			delete myObject;
@@ -227,4 +515,11 @@ namespace Gneu
 			delete myObject;
 		}
 	};
+
+	bool ObjectTests::VoidDoSomethingCalled = false;
+	bool ObjectTests::IntDoSomethingCalled = false;
+	bool ObjectTests::BoolDoSomethingCalled = false;
+	bool ObjectTests::DoubleDoSomethingCalled = false;
+	bool ObjectTests::FloatDoSomethingCalled = false;
+	bool ObjectTests::PointerDoSomethingCalled = false;
 }
