@@ -6,7 +6,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class Function : public Object
+		class FH_API Function : public Object
 		{
 		public:
 		};

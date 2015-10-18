@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Types/Boolean.h"
+#include "v8.h"
 
 namespace Gneu
 {
@@ -10,6 +11,7 @@ namespace Gneu
 		{
 		public:
 			BooleanIMPL(v8::Handle<v8::Value>);
+			BooleanIMPL(bool);
 
 			operator bool() const override;
 

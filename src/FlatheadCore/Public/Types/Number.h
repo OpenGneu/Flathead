@@ -6,10 +6,11 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class Number : public Primitive
+		class FH_API Number : public Primitive
 		{
 		public:
 			virtual operator double() const = 0;
+			static Number *New(double);
 		};
 	}
 }

@@ -14,6 +14,16 @@ NumberIMPL::NumberIMPL(v8::Handle<v8::Value> _value)
 	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::Number>::Cast(_value));
 }
 
+NumberIMPL::NumberIMPL(double _value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	persisted_value.Reset(g_CurrentVM, v8::Number::New(g_CurrentVM, _value));
+}
+
 NumberIMPL::operator double() const
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);

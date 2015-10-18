@@ -40,6 +40,7 @@ namespace Gneu
 		bool Set(char *, Types::FloatFunction);
 		bool Set(char *, Types::IntFunction);
 		bool Set(char *, Types::VoidPFunction);
+		bool Set(char *key, Types::Value *value);
 		
 		void Execute(char *input, char *output);
 

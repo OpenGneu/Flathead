@@ -16,6 +16,8 @@
 #include "libplatform/libplatform.h"
 
 #include "Types/Value.h"
+#include "Types/Boolean.h"
+#include "Types/Number.h"
 #include "Types/Translate.h"
 
 using namespace Gneu;
@@ -450,6 +452,24 @@ bool Flathead::Set(char *key, bool value)
 	INITIALIZE_SCOPE();
 
 	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, Types::Value *value)
+{
+	INITIALIZE_SCOPE();
+
+	if (value->IsBoolean())
+	{
+		Types::Boolean *pBool = (Types::Boolean *)value;
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, (bool)*pBool));
+	}
+	if (value->IsNumber())
+	{
+		Types::Number *pValue = (Types::Number *)value;
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, (double)*pValue));
+	}
+
+	return false;
 }
 
 bool Flathead::Set(char *key, Types::VoidFunction cb)
