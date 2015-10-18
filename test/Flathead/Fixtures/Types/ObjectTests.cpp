@@ -83,6 +83,20 @@ namespace Gneu
 			return (void *)(int)(double)*num;
 		}
 
+		static bool StringDoSomethingCalled;
+		static char *StringDoSomething(Types::CallbackInfo &args)
+		{
+			StringDoSomethingCalled = true;
+			return "Test Value";
+		}
+
+		static bool WideStringDoSomethingCalled;
+		static wchar_t *WideStringDoSomething(Types::CallbackInfo &args)
+		{
+			WideStringDoSomethingCalled = true;
+			return L"Test Value";
+		}
+
 		TEST_METHOD(ShouldBeAbleToRetrieveAnObject)
 		{
 			bool tmp;
@@ -326,6 +340,74 @@ namespace Gneu
 			delete myObject;
 		}
 
+		TEST_METHOD(ShouldBeAbleToSetAStringFunction)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("stringCB", &ObjectTests::StringDoSomething));
+			Types::Value *myProperty = myObject->Get("stringCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.stringCB(42.0);", buffer);
+
+			Assert::AreEqual("Test Value", buffer);
+
+			Assert::IsTrue(StringDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAWideStringFunction)
+		{
+			bool tmp;
+			char buffer[128] = { 0 };
+			pFH->Execute("myObject = {};", tmp);
+
+			Types::Value *MyObjectValue = pFH->Get("myObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsTrue(myObject->Set("wideStringCB", &ObjectTests::WideStringDoSomething));
+			Types::Value *myProperty = myObject->Get("wideStringCB");
+
+			Assert::IsNotNull(myProperty);
+			Assert::IsTrue(myProperty->IsFunction());
+
+			Types::Function *myFunction = (Types::Function *)myProperty;
+
+			Assert::IsNotNull(myFunction);
+
+			Assert::IsTrue(myFunction->IsFunction());
+
+			pFH->Execute("myObject.wideStringCB(42.0);", buffer);
+
+			Assert::AreEqual("Test Value", buffer);
+
+			Assert::IsTrue(WideStringDoSomethingCalled);
+
+			delete myProperty;
+			delete myObject;
+		}
+
 		TEST_METHOD(ShouldBeAbleToSetVoidPFunctions)
 		{
 			bool tmp;
@@ -514,6 +596,20 @@ namespace Gneu
 			delete myProperty;
 			delete myObject;
 		}
+
+		TEST_METHOD(ShouldBeAbleToSetAnObject)
+		{
+			Types::Object *pObject = Types::Object::New();
+
+			pFH->Set("myVar", pObject);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsObject());
+
+			delete pObject;
+		}
 	};
 
 	bool ObjectTests::VoidDoSomethingCalled = false;
@@ -522,4 +618,6 @@ namespace Gneu
 	bool ObjectTests::DoubleDoSomethingCalled = false;
 	bool ObjectTests::FloatDoSomethingCalled = false;
 	bool ObjectTests::PointerDoSomethingCalled = false;
+	bool ObjectTests::StringDoSomethingCalled = false;
+	bool ObjectTests::WideStringDoSomethingCalled = false;
 }

@@ -20,7 +20,6 @@ namespace Gneu
 			bool IsInt32() const;
 			bool IsUint32() const;
 
-		protected:
 			v8::Persistent<v8::Number> persisted_value;
 		};
 	}

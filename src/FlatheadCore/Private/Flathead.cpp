@@ -16,10 +16,13 @@
 #include "libplatform/libplatform.h"
 
 #include "Types/Value.h"
-#include "Types/Boolean.h"
-#include "Types/String.h"
-#include "Types/Number.h"
 #include "Types/Translate.h"
+
+#include "Private/Types/impl/BooleanIMPL.h"
+#include "Private/Types/impl/NumberIMPL.h"
+#include "Private/Types/impl/StringIMPL.h"
+#include "Private/Types/impl/FunctionIMPL.h"
+#include "Private/Types/impl/ObjectIMPL.h"
 
 using namespace Gneu;
 using namespace Gneu::Utility;
@@ -461,22 +464,43 @@ bool Flathead::Set(char *key, Types::Value *value)
 
 	if (value->IsBoolean())
 	{
-		Types::Boolean *pBool = (Types::Boolean *)value;
-		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, (bool)*pBool));
+		Types::BooleanIMPL *pBool = (Types::BooleanIMPL *)value;
+
+		v8::Local<v8::Boolean> pValue = v8::Handle<v8::Boolean>::New(g_CurrentVM, pBool->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
 	}
 	if (value->IsNumber())
 	{
-		Types::Number *pValue = (Types::Number *)value;
-		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, (double)*pValue));
+		Types::NumberIMPL *pNumber = (Types::NumberIMPL *)value;
+
+		v8::Local<v8::Number> pValue = v8::Handle<v8::Number>::New(g_CurrentVM, pNumber->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
 	}
 	if (value->IsString())
 	{
-		Types::String *pValue = (Types::String *)value;
-		
-		wchar_t buffer[4096] = { 0 };
-		pValue->Value(buffer);
+		Types::StringIMPL *pString = (Types::StringIMPL *)value;
 
-		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)buffer));
+		v8::Local<v8::String> pValue = v8::Handle<v8::String>::New(g_CurrentVM, pString->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsFunction())
+	{
+		Types::FunctionIMPL *pObject = (Types::FunctionIMPL *)value;
+
+		v8::Local<v8::Function> pValue = v8::Handle<v8::Function>::New(g_CurrentVM, pObject->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsObject())
+	{
+		Types::ObjectIMPL *pObject = (Types::ObjectIMPL *)value;
+
+		v8::Local<v8::Object> pValue = v8::Handle<v8::Object>::New(g_CurrentVM, pObject->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
 	}
 
 	return false;
@@ -542,6 +566,28 @@ bool Flathead::Set(char *key, Types::VoidPFunction cb)
 	INITIALIZE_SCOPE();
 
 	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidPointerCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::StringFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::StringCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::WideStringFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::WideStringCallback, v8::External::New(g_CurrentVM, cb));
 	v8::Local<v8::Function> func = wrapper->GetFunction();
 	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
 

@@ -83,6 +83,20 @@ namespace Gneu
 			return (void *)(int)(double)*num;
 		}
 
+		static bool StringDoSomethingCalled;
+		static char *StringDoSomething(Types::CallbackInfo &args)
+		{
+			StringDoSomethingCalled = true;
+			return "Test Value";
+		}
+
+		static bool WideStringDoSomethingCalled;
+		static wchar_t *WideStringDoSomething(Types::CallbackInfo &args)
+		{
+			WideStringDoSomethingCalled = true;
+			return L"Test Value";
+		}
+
 		TEST_METHOD(ShouldBeAbleToRetrieveAFunction)
 		{
 			bool tmp;
@@ -273,6 +287,148 @@ namespace Gneu
 
 			delete myFunc;
 		}
+
+		TEST_METHOD(ShouldBeAbleToSetAStringFunction)
+		{
+			int addr;
+			char buffer[128] = { 0 };
+			pFH->Set("myFunc", &FunctionTests::StringDoSomething);
+
+			Types::Value *MyObjectValue = pFH->Get("myFunc");
+
+			Assert::IsNotNull(MyObjectValue);
+			Assert::IsTrue(MyObjectValue->IsFunction());
+
+			Types::Function *myFunc = (Types::Function *)MyObjectValue;
+
+			Assert::IsNotNull(myFunc);
+			Assert::IsTrue(myFunc->IsFunction());
+
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(420000);", buffer);
+
+			Assert::AreEqual("Test Value", buffer);
+
+			Assert::IsTrue(StringDoSomethingCalled);
+
+			delete myFunc;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAWideStringFunction)
+		{
+			int addr;
+			char buffer[128] = { 0 };
+			pFH->Set("myFunc", &FunctionTests::WideStringDoSomething);
+
+			Types::Value *MyObjectValue = pFH->Get("myFunc");
+
+			Assert::IsNotNull(MyObjectValue);
+			Assert::IsTrue(MyObjectValue->IsFunction());
+
+			Types::Function *myFunc = (Types::Function *)MyObjectValue;
+
+			Assert::IsNotNull(myFunc);
+			Assert::IsTrue(myFunc->IsFunction());
+
+			pFH->Execute("myFunc;", buffer);
+
+			Assert::AreEqual("function myFunc() { [native code] }", buffer);
+
+			pFH->Execute("myFunc(420000);", buffer);
+
+			Assert::AreEqual("Test Value", buffer);
+
+			Assert::IsTrue(WideStringDoSomethingCalled);
+
+			delete myFunc;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAVoidFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::VoidDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAnIntFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::IntDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAnBoolFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::BoolDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetADoubleFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::DoubleDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAFloatFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::FloatDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToSetAVoidPointerFunctionFromFunctionType)
+		{
+			Types::Function *pFn = Types::Function::New(&FunctionTests::PointerDoSomething);
+
+			pFH->Set("myVar", pFn);
+
+			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
 	};
 
 	bool FunctionTests::VoidDoSomethingCalled = false;
@@ -281,4 +437,6 @@ namespace Gneu
 	bool FunctionTests::DoubleDoSomethingCalled = false;
 	bool FunctionTests::FloatDoSomethingCalled = false;
 	bool FunctionTests::PointerDoSomethingCalled = false;
+	bool FunctionTests::StringDoSomethingCalled = false;
+	bool FunctionTests::WideStringDoSomethingCalled = false;
 }

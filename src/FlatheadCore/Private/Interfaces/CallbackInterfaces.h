@@ -17,6 +17,8 @@ namespace Gneu
 			static void DoubleCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 			static void FloatCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 			static void VoidPointerCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
+			static void StringCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
+			static void WideStringCallback(const v8::FunctionCallbackInfo<v8::Value>& args);
 		};
 	}
 }

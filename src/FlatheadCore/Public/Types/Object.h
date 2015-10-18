@@ -12,6 +12,8 @@ namespace Gneu
 		typedef double(*DoubleFunction)(CallbackInfo &args);
 		typedef float(*FloatFunction)(CallbackInfo &args);
 		typedef int(*IntFunction)(CallbackInfo &args);
+		typedef char *(*StringFunction)(CallbackInfo &args);
+		typedef wchar_t *(*WideStringFunction)(CallbackInfo &args);
 		typedef void *(*VoidPFunction)(CallbackInfo &args);
 
 		class FH_API Object : public Value
@@ -29,6 +31,10 @@ namespace Gneu
 			virtual bool Set(char *, DoubleFunction) const = 0;
 			virtual bool Set(char *, FloatFunction) const = 0;
 			virtual bool Set(char *, VoidPFunction) const = 0;
+			virtual bool Set(char *, StringFunction) const = 0;
+			virtual bool Set(char *, WideStringFunction) const = 0;
+
+			static Object *New();
 		};
 	}
 }

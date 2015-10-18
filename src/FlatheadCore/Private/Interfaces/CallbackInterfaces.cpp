@@ -71,3 +71,29 @@ void CallbackInterfaces::VoidPointerCallback(const v8::FunctionCallbackInfo<v8::
 
 	args.GetReturnValue().Set((int)icb(cb));
 }
+
+void CallbackInterfaces::StringCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+	Types::CallbackInfoIMPL cb(args);
+
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::StringFunction icb = (Types::StringFunction)ext->Value();
+
+	char *result = icb(cb);
+	v8::Local<v8::String> v8Result = v8::String::NewFromUtf8(args.GetIsolate(), result);
+
+	args.GetReturnValue().Set(v8Result);
+}
+
+void CallbackInterfaces::WideStringCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
+{
+	Types::CallbackInfoIMPL cb(args);
+
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(args.Data());
+	Types::WideStringFunction icb = (Types::WideStringFunction)ext->Value();
+
+	wchar_t *result = icb(cb);
+	v8::Local<v8::String> v8Result = v8::String::NewFromTwoByte(args.GetIsolate(), (uint16_t *)result);
+
+	args.GetReturnValue().Set(v8Result);
+}

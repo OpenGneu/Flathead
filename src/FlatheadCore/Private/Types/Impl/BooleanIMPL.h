@@ -17,7 +17,6 @@ namespace Gneu
 
 			bool IsBoolean() const override;
 
-		private:
 			v8::Persistent<v8::Boolean> persisted_value;
 		};
 	}

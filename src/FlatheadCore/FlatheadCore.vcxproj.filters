@@ -93,6 +93,9 @@
     <ClInclude Include="Private\Types\Impl\CallbackInfoIMPL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Private\Types\Impl\FunctionIMPL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -147,6 +150,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Private\Types\String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Types\Impl\FunctionIMPL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
