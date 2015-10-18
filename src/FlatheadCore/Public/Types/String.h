@@ -6,7 +6,7 @@ namespace Gneu
 {
 	namespace Types
 	{
-		class String : public Primitive
+		class FH_API String : public Primitive
 		{
 		public:
 			virtual void Value(char *) const = 0;
@@ -19,6 +19,9 @@ namespace Gneu
 
 			virtual bool Equals(wchar_t *) const = 0;
 			virtual bool StrictEquals(wchar_t *) const = 0;
+
+			static String *New(char *);
+			static String *New(wchar_t *);
 		};
 	}
 }

@@ -268,6 +268,7 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp" />
     <ClCompile Include="Private\Types\Impl\StringIMPL.cpp" />
     <ClCompile Include="Private\Types\Number.cpp" />
+    <ClCompile Include="Private\Types\String.cpp" />
     <ClCompile Include="Private\Types\Translate.cpp" />
     <ClCompile Include="Private\Types\Value.cpp" />
     <ClCompile Include="Private\Utility\ArrayBufferAllocator.cpp" />

@@ -165,5 +165,40 @@ namespace Gneu
 
 			delete myString;
 		}
+
+		TEST_METHOD(ShouldBeAbleToSetAStringWithStringType)
+		{
+			Types::String *b = Types::String::New("test string");
+			Types::String *b2 = Types::String::New(L"Second test string");
+
+			pFH->Set("myVar", b);
+			pFH->Set("myVar2", b2);
+
+			Types::Value *myStringValue = pFH->Get("myVar");
+			Types::Value *myStringValue2 = pFH->Get("myVar2");
+
+			Assert::IsNotNull(myStringValue);
+			Assert::IsTrue(myStringValue->IsString());
+
+			Assert::IsNotNull(myStringValue2);
+			Assert::IsTrue(myStringValue2->IsString());
+
+			Types::String *myString = (Types::String *)myStringValue;
+			Types::String *myString2 = (Types::String *)myStringValue2;
+
+			Assert::IsNotNull(myString);
+			Assert::IsTrue(myString->IsString());
+			Assert::IsTrue(myString->Equals("test string"));
+
+			Assert::IsNotNull(myString2);
+			Assert::IsTrue(myString2->IsString());
+			Assert::IsTrue(myString2->Equals("Second test string"));
+
+			delete myString;
+			delete myString2;
+
+			delete b;
+			delete b2;
+		}
 	};
 }

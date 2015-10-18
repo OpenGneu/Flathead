@@ -14,6 +14,26 @@ StringIMPL::StringIMPL(v8::Handle<v8::Value> _value)
 	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::String>::Cast(_value));
 }
 
+StringIMPL::StringIMPL(char *_value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context); 
+
+	persisted_value.Reset(g_CurrentVM, v8::String::NewFromUtf8(g_CurrentVM, _value));
+}
+
+StringIMPL::StringIMPL(wchar_t *_value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context); 
+
+	persisted_value.Reset(g_CurrentVM, v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)_value));
+}
+
 bool StringIMPL::IsString() const
 {
 	return true;

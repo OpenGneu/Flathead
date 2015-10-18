@@ -17,6 +17,7 @@
 
 #include "Types/Value.h"
 #include "Types/Boolean.h"
+#include "Types/String.h"
 #include "Types/Number.h"
 #include "Types/Translate.h"
 
@@ -467,6 +468,15 @@ bool Flathead::Set(char *key, Types::Value *value)
 	{
 		Types::Number *pValue = (Types::Number *)value;
 		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, (double)*pValue));
+	}
+	if (value->IsString())
+	{
+		Types::String *pValue = (Types::String *)value;
+		
+		wchar_t buffer[4096] = { 0 };
+		pValue->Value(buffer);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)buffer));
 	}
 
 	return false;
