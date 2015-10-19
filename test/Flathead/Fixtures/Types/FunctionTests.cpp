@@ -290,7 +290,6 @@ namespace Gneu
 
 		TEST_METHOD(ShouldBeAbleToSetAStringFunction)
 		{
-			int addr;
 			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::StringDoSomething);
 
@@ -319,7 +318,6 @@ namespace Gneu
 
 		TEST_METHOD(ShouldBeAbleToSetAWideStringFunction)
 		{
-			int addr;
 			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::WideStringDoSomething);
 
