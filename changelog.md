@@ -13,6 +13,7 @@ For more information about how to maintain this document, [please keep a changel
 * Can retrieve all types from JS land
 * Boolean, String, Number, Object, Function types have specific subclasses to retrieve value
 * Can set and get Objects, Functions, Numbers, Strings, Booleans from native values. 
+* Can expose a C++ object and re-reference it to allow C++ objects to be referenced by JS function calls. 
 
 ## [2.1.1][2.1.1]
 
