@@ -4,7 +4,7 @@
 #include "Flathead.h"
 #include "Interfaces/ConsoleInterfaces.h"
 #include "Interfaces/ModuleInterfaces.h"
-#include "libplatform/libplatform.h"
+#include "Interfaces/CallbackInterfaces.h"
 
 #include "Utility/ArrayBufferAllocator.h"
 
@@ -13,6 +13,16 @@
 #include <string.h>
 
 #include "v8.h"
+#include "libplatform/libplatform.h"
+
+#include "Types/Value.h"
+#include "Types/Translate.h"
+
+#include "Private/Types/impl/BooleanIMPL.h"
+#include "Private/Types/impl/NumberIMPL.h"
+#include "Private/Types/impl/StringIMPL.h"
+#include "Private/Types/impl/FunctionIMPL.h"
+#include "Private/Types/impl/ObjectIMPL.h"
 
 using namespace Gneu;
 using namespace Gneu::Utility;
@@ -54,6 +64,9 @@ FH_API Flathead::Flathead()
 	if (configuration->ShouldInitializeImmediately())
 	{
 		InitializeV8();
+
+		InitializeGlobalContext();
+		PreloadCore();
 	}
 }
 
@@ -64,6 +77,9 @@ FH_API Flathead::Flathead(Configuration &cfg)
 	if (configuration->ShouldInitializeImmediately())
 	{
 		InitializeV8();
+
+		InitializeGlobalContext();
+		PreloadCore();
 	}
 }
 
@@ -128,9 +144,6 @@ FH_API void Flathead::InitializeV8()
 	{
 		perror("Failed to create a new VM");
 	}
-
-	InitializeGlobalContext();
-	PreloadCore();
 }
 
 void Flathead::PreloadCore()
@@ -148,10 +161,12 @@ void Flathead::PreloadCore()
 	{
 		FILE* file;
 
+		// Trapping incorrect path or missing file (which is practically the same damned thing!)
 		if (fopen_s(&file, GetConfiguration()->Bootstrap(), "rb"))
 		{
-			perror("Could not load bootstrap file.");
-			return; 
+			throw 1;
+			// perror("Could not load bootstrap file.");
+			// return; 
 		}
 
 		fseek(file, 0, SEEK_END);
@@ -163,6 +178,12 @@ void Flathead::PreloadCore()
 		result[size] = '\0';
 		int read = static_cast<int>(fread_s(result, size, 1, size, file));
 		fclose(file);
+
+		// Trapping empty bootstrap file
+		if (read == 0)
+		{
+			throw 2;
+		}
 		
 		Local<String> name = String::NewFromUtf8(g_CurrentVM, GetConfiguration()->Bootstrap(), NewStringType::kNormal).ToLocalChecked();
 		ScriptOrigin origin(name);
@@ -200,9 +221,11 @@ void Flathead::PreloadCore()
 			Function::New(g_CurrentVM, &ModuleInterfaces::Exists, External::New(g_CurrentVM, this)),
 			Function::New(g_CurrentVM, &ModuleInterfaces::LoadModule, External::New(g_CurrentVM, this)),
 			Function::New(g_CurrentVM, &ModuleInterfaces::Execute, External::New(g_CurrentVM, this)),
+			Function::New(g_CurrentVM, &ModuleInterfaces::Modified, External::New(g_CurrentVM, this)),
 			String::NewFromUtf8(g_CurrentVM, GetConfiguration()->Path()),
 			String::NewFromUtf8(g_CurrentVM, V8::GetVersion()),
 			String::NewFromUtf8(g_CurrentVM, BINDING_VERSION),
+			Boolean::New(g_CurrentVM, GetConfiguration()->EnableHotReload()),
 		};
 
 		Local<Value> load = func->Call(context->Global(), sizeof(args) / sizeof(args[0]), args);
@@ -396,4 +419,177 @@ void Flathead::JSTick(float delta)
 	};
 
 	func->Call(context->Global(), sizeof(args) / sizeof(args[0]), args);
+}
+
+Types::Value *Flathead::Get(char *name)
+{
+	INITIALIZE_SCOPE();
+
+	Local<Value> result = context->Global()->Get(v8::String::NewFromUtf8(g_CurrentVM, name));
+
+	return Types::Translate::ToFlathead(result);
+}
+
+bool Flathead::Set(char *key, char *value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::String::NewFromUtf8(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, double value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Number::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, int value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Integer::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, bool value)
+{
+	INITIALIZE_SCOPE();
+
+	return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), v8::Boolean::New(g_CurrentVM, value));
+}
+
+bool Flathead::Set(char *key, Types::Value *value)
+{
+	INITIALIZE_SCOPE();
+
+	if (value->IsBoolean())
+	{
+		Types::BooleanIMPL *pBool = (Types::BooleanIMPL *)value;
+
+		v8::Local<v8::Boolean> pValue = v8::Handle<v8::Boolean>::New(g_CurrentVM, pBool->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsNumber())
+	{
+		Types::NumberIMPL *pNumber = (Types::NumberIMPL *)value;
+
+		v8::Local<v8::Number> pValue = v8::Handle<v8::Number>::New(g_CurrentVM, pNumber->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsString())
+	{
+		Types::StringIMPL *pString = (Types::StringIMPL *)value;
+
+		v8::Local<v8::String> pValue = v8::Handle<v8::String>::New(g_CurrentVM, pString->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsFunction())
+	{
+		Types::FunctionIMPL *pObject = (Types::FunctionIMPL *)value;
+
+		v8::Local<v8::Function> pValue = v8::Handle<v8::Function>::New(g_CurrentVM, pObject->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+	if (value->IsObject())
+	{
+		Types::ObjectIMPL *pObject = (Types::ObjectIMPL *)value;
+
+		v8::Local<v8::Object> pValue = v8::Handle<v8::Object>::New(g_CurrentVM, pObject->persisted_value);
+
+		return context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, key), pValue);
+	}
+
+	return false;
+}
+
+bool Flathead::Set(char *key, Types::VoidFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::BoolFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::BoolCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::DoubleFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::DoubleCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::FloatFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::FloatCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::IntFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::IntCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::VoidPFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidPointerCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::StringFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::StringCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
+}
+
+bool Flathead::Set(char *key, Types::WideStringFunction cb)
+{
+	INITIALIZE_SCOPE();
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::WideStringCallback, v8::External::New(g_CurrentVM, cb));
+	v8::Local<v8::Function> func = wrapper->GetFunction();
+	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
+
+	return context->Global()->Set(func->GetName(), func);
 }

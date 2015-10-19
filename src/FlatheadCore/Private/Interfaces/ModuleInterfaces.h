@@ -14,6 +14,7 @@ namespace Gneu
 			static void Exists(const v8::FunctionCallbackInfo<v8::Value>& args);
 			static void LoadModule(const v8::FunctionCallbackInfo<v8::Value>& args);
 			static void Execute(const v8::FunctionCallbackInfo<v8::Value>& args);
+			static void Modified(const v8::FunctionCallbackInfo<v8::Value>& args);
 			
 		private:
 		};

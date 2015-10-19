@@ -16,4 +16,12 @@ extern int g_Type;
 extern char g_Buffer[];
 
 void TrackingLoggingFn(int type, const char *msg);
+void WriteToFile(char *fileName, char *output);
 void ResetTracking();
+
+#pragma comment(lib, "WINMM.LIB")
+#pragma comment(lib, "icuuc.lib")
+#pragma comment(lib, "icui18n.lib")
+#pragma comment(lib, "v8.lib")
+#pragma comment(lib, "v8_libbase.lib")
+#pragma comment(lib, "v8_libplatform.lib")

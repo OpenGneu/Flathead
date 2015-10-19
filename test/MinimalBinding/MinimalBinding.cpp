@@ -6,6 +6,9 @@
 #include <stdlib.h>  
 #include <direct.h>
 
+#include <chrono>
+#include <thread>
+
 #include "Flathead.h"
 #include "Utility/Configuration.h"
 
@@ -14,6 +17,8 @@ using namespace Gneu::Utility;
 
 #define GetCurrentDir _getcwd
 
+void WriteToFile(char *fileName, char *output);
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	printf("Attempting to setup binding...\n");
@@ -21,15 +26,38 @@ int _tmain(int argc, _TCHAR* argv[])
 	Configuration cfg;
 
 	cfg.EnableHarmonyDestructuring(true);
+	cfg.EnableHotReload(false);
 
 	Flathead *pFH = new Flathead(cfg);
 	char buffer[4096];
+	WriteToFile("lib/HotReload.js", "var global = this; exports.value = this.myVar; module.unload = function () { global.unloaded = true; }");
 
-	pFH->Execute("var meaning = require('./sampleJSON.json'); meaning.meaningOfLife;", buffer);
-	pFH->Execute("var meaning = require('./sampleModule'); meaning.meaningOfLife;", buffer);
+	pFH->Execute("require('./HotReload').value;", buffer);
+
+	std::this_thread::sleep_for(std::chrono::seconds(1)); // Only limitation is the resolution reported by filesystem =\
+
+	WriteToFile("lib/HotReload.js", "exports.value = this.unloaded;");
+
+	pFH->Tick(1.0f);
+
+	pFH->Execute("require('./HotReload').value;", buffer);
 	
 	delete pFH;
 	pFH = NULL;
 
 	return 0;
+}
+
+void WriteToFile(char *fileName, char *output)
+{
+	FILE* file;
+
+	if (fopen_s(&file, fileName, "w"))
+	{
+		return;
+	}
+
+	fprintf(file, output);
+
+	fclose(file);
 }

@@ -6,6 +6,25 @@ For more information about how to maintain this document, [please keep a changel
 
 ## [Unreleased][unreleased]
 
+## [2.2.0][2.2.0]
+
+### Added
+* Module hot swapping 
+* Provided unload event for hot swapping
+* EnableHotReloading flag is reflected in behavior of bootstrapping
+* Can retrieve all types from JS land
+* Boolean, String, Number, Object, Function types have specific subclasses to retrieve value
+* Can set and get Objects, Functions, Numbers, Strings, Booleans from native values. 
+* Can expose a C++ object and re-reference it to allow C++ objects to be referenced by JS function calls. 
+
+### Test Coverage
+
+| Type                        | Coverage % |
+| :-------------------------- | ---------: | 
+| **Covered Lines**           |      80.3% | 
+| **Uncovered Lines**         |      18.4% | 
+| **Partially Covered Lines** |       1.3% | 
+
 ## [2.1.1][2.1.1]
 
 ### Added
@@ -32,6 +51,7 @@ For more information about how to maintain this document, [please keep a changel
 ### Added
 * Initial Commit
 
-[unreleased]: https://github.com/OpenGneu/Flathead/compare/v2.1.1...HEAD
+[unreleased]: https://github.com/OpenGneu/Flathead/compare/v2.2.0...HEAD
+[2.1.1]: https://github.com/OpenGneu/Flathead/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/OpenGneu/Flathead/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/OpenGneu/flathead/tree/v2.1.0

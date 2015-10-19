@@ -1,8 +1,10 @@
 // Copyright 2015 Gneu LLC. All Rights Reserved.
 
-#include "Utility/Configuration.h"
-
 #include "API.h"
+
+#include "Utility/Configuration.h"
+#include "Types/Value.h"
+#include "Types/Function.h"
 
 #pragma once
 
@@ -20,9 +22,28 @@ namespace Gneu
 		Configuration *GetConfiguration(); 
 
 		void InitializeV8();
+
+		void InitializeGlobalContext();
+		void PreloadCore();
+
 		void CleanupV8();
 		void Tick(float delta);
 
+		Types::Value *Get(char *);
+		bool Set(char *, char *);
+		bool Set(char *, double);
+		bool Set(char *, int);
+		bool Set(char *, bool);
+		bool Set(char *, Types::VoidFunction); 
+		bool Set(char *, Types::BoolFunction);
+		bool Set(char *, Types::DoubleFunction);
+		bool Set(char *, Types::FloatFunction);
+		bool Set(char *, Types::IntFunction);
+		bool Set(char *, Types::VoidPFunction);
+		bool Set(char *, Types::StringFunction);
+		bool Set(char *, Types::WideStringFunction);
+		bool Set(char *key, Types::Value *value);
+		
 		void Execute(char *input, char *output);
 
 		void Execute(char *input, bool &output);
@@ -34,9 +55,6 @@ namespace Gneu
 
 	protected:
 		void HandleV8Flags();
-
-		void InitializeGlobalContext(); 
-		void PreloadCore();
 
 		void JSTick(float delta);
 

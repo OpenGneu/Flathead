@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -23,6 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>FlatheadCore</RootNamespace>
     <ProjectName>Flathead</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,14 +41,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -228,20 +229,52 @@ node build\scripts\copyLibs.js $(Configuration) $(PlatformShortName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Private\Interfaces\CallbackInterfaces.h" />
+    <ClInclude Include="Private\Types\Impl\BooleanIMPL.h" />
     <ClInclude Include="Private\Interfaces\ConsoleInterfaces.h" />
     <ClInclude Include="Private\Interfaces\ModuleInterfaces.h" />
+    <ClInclude Include="Private\Types\Impl\CallbackInfoIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\FunctionIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\NumberIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\ObjectIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\PrimitiveIMPL.h" />
+    <ClInclude Include="Private\Types\Impl\StringIMPL.h" />
     <ClInclude Include="Public\API.h" />
     <ClInclude Include="Public\Enumerations\LogLevels.h" />
     <ClInclude Include="Public\Flathead.h" />
     <ClInclude Include="Public\stdafx.h" />
     <ClInclude Include="Public\targetver.h" />
+    <ClInclude Include="Public\Types\Boolean.h" />
+    <ClInclude Include="Public\Types\CallbackInfo.h" />
+    <ClInclude Include="Public\Types\Function.h" />
+    <ClInclude Include="Public\Types\Number.h" />
+    <ClInclude Include="Public\Types\Object.h" />
+    <ClInclude Include="Public\Types\Primitive.h" />
+    <ClInclude Include="Public\Types\String.h" />
+    <ClInclude Include="Public\Types\Translate.h" />
+    <ClInclude Include="Public\Types\Value.h" />
     <ClInclude Include="Public\Utility\Configuration.h" />
     <ClInclude Include="Public\Utility\ArrayBufferAllocator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Private\Interfaces\CallbackInterfaces.cpp" />
+    <ClCompile Include="Private\Types\Boolean.cpp" />
+    <ClCompile Include="Private\Types\Function.cpp" />
+    <ClCompile Include="Private\Types\Impl\BooleanIMPL.cpp" />
     <ClCompile Include="Private\Flathead.cpp" />
     <ClCompile Include="Private\Interfaces\ModuleInterfaces.cpp" />
+    <ClCompile Include="Private\Types\Impl\CallbackInfoIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\NumberIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\ObjectIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\PrimitiveIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\FunctionIMPL.cpp" />
+    <ClCompile Include="Private\Types\Impl\StringIMPL.cpp" />
+    <ClCompile Include="Private\Types\Number.cpp" />
+    <ClCompile Include="Private\Types\Object.cpp" />
+    <ClCompile Include="Private\Types\String.cpp" />
+    <ClCompile Include="Private\Types\Translate.cpp" />
+    <ClCompile Include="Private\Types\Value.cpp" />
     <ClCompile Include="Private\Utility\ArrayBufferAllocator.cpp" />
     <ClCompile Include="Private\Utility\Configuration.cpp" />
     <ClCompile Include="Private\Interfaces\ConsoleInterfaces.cpp" />

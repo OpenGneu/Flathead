@@ -2,19 +2,24 @@
 #include "CppUnitTest.h"
 
 #include "Flathead.h"
+#include "RequiresFlathead.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Gneu
 {
-	TEST_CLASS(FlatheadExecuteTests)
+	TEST_CLASS(FlatheadExecuteTests), RequiresFlathead
 	{
-		static Flathead *pFH;
 
 	public:
 		TEST_CLASS_INITIALIZE(InitializeFlatheadExecutionTests)
 		{
-			pFH = new Flathead();
+			SetupFlathead();
+		}
+
+		TEST_CLASS_CLEANUP(CleanupFlatheadExecutionTests)
+		{
+			CleanupFlathead();
 		}
 
 		TEST_METHOD(ShouldSupportStrings)
@@ -71,6 +76,4 @@ namespace Gneu
 			Assert::IsTrue(result);
 		}
 	};
-
-	Flathead *FlatheadExecuteTests::pFH = NULL;
 }
