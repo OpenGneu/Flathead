@@ -55,7 +55,7 @@ INITIALIZE_SCOPE(); \
 EXEC(_input);
 
 #define SetV8Flag( flag ) \
-V8::SetFlagsFromString(flag, strlen(flag));
+V8::SetFlagsFromString(flag, (int)strlen(flag));
 
 FH_API Flathead::Flathead()
 {
