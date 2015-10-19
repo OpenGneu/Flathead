@@ -76,28 +76,28 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
-    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
-    <IncludePath>$(SolutionDir)src\FlatheadCore\Public\;$(IncludePath);$(SolutionDir)\libs\v8\4.8.0\include\</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)src\FlatheadCore\Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
