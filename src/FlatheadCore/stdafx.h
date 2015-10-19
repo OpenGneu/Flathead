@@ -4,7 +4,7 @@
 
 #include "API.h"
 
-#define BINDING_VERSION "2.1.1"
+#define BINDING_VERSION "2.2.0"
 #define COMPILE_DATE	__DATE__
 #define COMPILE_TIME	__TIME__
 
