@@ -17,6 +17,25 @@ ObjectIMPL::ObjectIMPL(v8::Handle<v8::Value> _value)
 	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::Object>::Cast(_value));
 }
 
+ObjectIMPL::ObjectIMPL(char *name, void *reference)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	v8::Local<v8::ObjectTemplate> objImpl = v8::ObjectTemplate::New(g_CurrentVM);
+	objImpl->SetInternalFieldCount(1);
+
+	v8::Local<v8::Object> obj = objImpl->NewInstance();
+
+	obj->SetInternalField(0, v8::External::New(g_CurrentVM, reference));
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), obj);
+
+	persisted_value.Reset(g_CurrentVM, obj);
+}
+
 ObjectIMPL::ObjectIMPL()
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);
@@ -335,4 +354,25 @@ bool ObjectIMPL::Set(char *key, WideStringFunction cb) const
 	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
 
 	return obj->Set(func->GetName(), func);
+}
+
+void *ObjectIMPL::GetReference() const
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Object>::New(g_CurrentVM, persisted_value);
+	
+	Local<External> external = Handle<External>::Cast(obj->GetInternalField(0));
+
+	if (external.IsEmpty() || external->IsNull() || external->IsUndefined())
+	{
+		return NULL;
+	}
+
+	void *pElement = external->Value();
+
+	return external->Value();
 }

@@ -11,6 +11,7 @@ namespace Gneu
 		{
 		public:
 			ObjectIMPL(v8::Handle<v8::Value>);
+			ObjectIMPL(char *, void *);
 			ObjectIMPL();
 
 			bool IsObject() const override;
@@ -37,6 +38,8 @@ namespace Gneu
 			bool Set(char *, VoidPFunction) const;
 			bool Set(char *, StringFunction) const;
 			bool Set(char *, WideStringFunction) const;
+
+			void *GetReference() const;
 
 			v8::Persistent<v8::Object> persisted_value;
 		};

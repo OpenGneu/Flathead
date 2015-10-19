@@ -8,3 +8,8 @@ Gneu::Types::Object *Gneu::Types::Object::New()
 {
 	return new Gneu::Types::ObjectIMPL();
 }
+
+Gneu::Types::Object *Gneu::Types::Object::New(char *name, void *reference)
+{
+	return new Gneu::Types::ObjectIMPL(name, reference);
+}

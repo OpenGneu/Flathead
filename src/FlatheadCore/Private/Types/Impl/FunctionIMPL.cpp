@@ -438,3 +438,8 @@ FunctionIMPL::FunctionIMPL(WideStringFunction cb)
 
 	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
 }
+
+void *FunctionIMPL::GetReference() const
+{
+	return NULL;
+}

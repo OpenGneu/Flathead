@@ -45,6 +45,8 @@ namespace Gneu
 			bool Set(char *, StringFunction) const;
 			bool Set(char *, WideStringFunction) const;
 
+			void *GetReference() const;
+
 			v8::Persistent<v8::Function> persisted_value;
 		};
 	}

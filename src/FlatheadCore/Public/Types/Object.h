@@ -34,7 +34,10 @@ namespace Gneu
 			virtual bool Set(char *, StringFunction) const = 0;
 			virtual bool Set(char *, WideStringFunction) const = 0;
 
+			virtual void *GetReference() const = 0;
+
 			static Object *New();
+			static Object *New(char *, void *);
 		};
 	}
 }

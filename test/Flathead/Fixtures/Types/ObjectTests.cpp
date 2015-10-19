@@ -13,6 +13,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Gneu
 {
+	class Sample
+	{
+	public:
+		int value;
+	};
+
 	TEST_CLASS(ObjectTests), RequiresFlathead
 	{
 	public:
@@ -609,6 +615,28 @@ namespace Gneu
 			Assert::IsTrue(myReturnValue->IsObject());
 
 			delete pObject;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeAGivenObject)
+		{
+			Sample *pSample = new Sample();
+			pSample->value = 42;
+
+			Types::Object *pObject = Types::Object::New("sampleObject", pSample);
+
+			Types::Value *MyObjectValue = pFH->Get("sampleObject");
+
+			Assert::IsNotNull(MyObjectValue);
+
+			Types::Object *myObject = (Types::Object *)MyObjectValue;
+
+			Assert::IsNotNull(myObject);
+			Sample *pReference = (Sample *)myObject->GetReference();
+
+			Assert::IsNotNull(pReference);
+			Assert::AreEqual(pReference->value, pSample->value);
+
+			delete pSample;
 		}
 	};
 
