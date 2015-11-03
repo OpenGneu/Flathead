@@ -18,6 +18,15 @@ namespace Gneu
 			static Function *New(BoolFunction);
 			static Function *New(StringFunction);
 			static Function *New(WideStringFunction);
+
+			static Function *New(char *, VoidFunction);
+			static Function *New(char *, IntFunction);
+			static Function *New(char *, DoubleFunction);
+			static Function *New(char *, FloatFunction);
+			static Function *New(char *, VoidPFunction);
+			static Function *New(char *, BoolFunction);
+			static Function *New(char *, StringFunction);
+			static Function *New(char *, WideStringFunction);
 		};
 	}
 }

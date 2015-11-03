@@ -101,6 +101,162 @@ FunctionIMPL::FunctionIMPL(FloatFunction cb)
 	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
 }
 
+FunctionIMPL::FunctionIMPL(StringFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::StringCallback, v8::External::New(g_CurrentVM, cb));
+
+	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
+}
+
+FunctionIMPL::FunctionIMPL(WideStringFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::WideStringCallback, v8::External::New(g_CurrentVM, cb));
+
+	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
+}
+
+FunctionIMPL::FunctionIMPL(char *name, VoidFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, IntFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::IntCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, BoolFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::BoolCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, VoidPFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::VoidPointerCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, DoubleFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::DoubleCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, FloatFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::FloatCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, StringFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::StringCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
+FunctionIMPL::FunctionIMPL(char *name, WideStringFunction cb)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
+
+	v8::Local<v8::Function> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::WideStringCallback, v8::External::New(g_CurrentVM, cb))->GetFunction();
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), wrapper);
+
+	persisted_value.Reset(g_CurrentVM, wrapper);
+}
+
 bool FunctionIMPL::IsObject() const
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);
@@ -409,34 +565,6 @@ bool FunctionIMPL::Set(char *key, WideStringFunction cb) const
 	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
 
 	return obj->Set(func->GetName(), func);
-}
-
-FunctionIMPL::FunctionIMPL(StringFunction cb)
-{
-	Isolate::Scope isolate_scope(g_CurrentVM);
-	HandleScope handle_scope(g_CurrentVM);
-	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
-	Context::Scope context_scope(context);
-
-	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
-
-	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::StringCallback, v8::External::New(g_CurrentVM, cb));
-
-	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
-}
-
-FunctionIMPL::FunctionIMPL(WideStringFunction cb)
-{
-	Isolate::Scope isolate_scope(g_CurrentVM);
-	HandleScope handle_scope(g_CurrentVM);
-	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
-	Context::Scope context_scope(context);
-
-	Local<v8::Object> obj = Handle<v8::Function>::New(g_CurrentVM, persisted_value);
-
-	v8::Local<v8::FunctionTemplate> wrapper = v8::FunctionTemplate::New(g_CurrentVM, &CallbackInterfaces::WideStringCallback, v8::External::New(g_CurrentVM, cb));
-
-	persisted_value.Reset(g_CurrentVM, wrapper->GetFunction());
 }
 
 void *FunctionIMPL::GetReference() const

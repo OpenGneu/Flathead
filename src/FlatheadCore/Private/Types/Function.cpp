@@ -43,3 +43,43 @@ Gneu::Types::Function *Gneu::Types::Function::New(WideStringFunction pFN)
 {
 	return new Gneu::Types::FunctionIMPL(pFN);
 }
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, VoidFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, IntFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, BoolFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, FloatFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, DoubleFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, VoidPFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, StringFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}
+
+Gneu::Types::Function *Gneu::Types::Function::New(char *name, WideStringFunction pFN)
+{
+	return new Gneu::Types::FunctionIMPL(name, pFN);
+}

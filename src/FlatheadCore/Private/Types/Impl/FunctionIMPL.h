@@ -20,6 +20,15 @@ namespace Gneu
 			FunctionIMPL(StringFunction);
 			FunctionIMPL(WideStringFunction);
 
+			FunctionIMPL(char *, VoidFunction);
+			FunctionIMPL(char *, IntFunction);
+			FunctionIMPL(char *, BoolFunction);
+			FunctionIMPL(char *, VoidPFunction);
+			FunctionIMPL(char *, DoubleFunction);
+			FunctionIMPL(char *, FloatFunction);
+			FunctionIMPL(char *, StringFunction);
+			FunctionIMPL(char *, WideStringFunction);
+
 			bool IsObject() const override;
 			bool IsFunction() const override;
 			bool IsArray() const override;
