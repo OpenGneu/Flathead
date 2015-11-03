@@ -11,6 +11,7 @@ namespace Gneu
 		{
 		public:
 			BooleanIMPL(v8::Handle<v8::Value>);
+			BooleanIMPL(char *, bool);
 			BooleanIMPL(bool);
 
 			operator bool() const override;

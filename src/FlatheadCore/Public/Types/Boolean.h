@@ -12,6 +12,7 @@ namespace Gneu
 		public:
 			virtual operator bool() const = 0;
 			static Boolean *New(bool);
+			static Boolean *New(char *, bool);
 		};
 	}
 }
