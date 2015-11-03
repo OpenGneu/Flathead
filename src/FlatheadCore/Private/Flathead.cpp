@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Enumerations/LogLevels.h"
+
 #include "v8.h"
 #include "libplatform/libplatform.h"
 
@@ -100,7 +102,7 @@ FH_API void Flathead::InitializeV8()
 {
 	if (g_Initialized)
 	{
-		perror("Already Initialized");
+		Croak("Already Initialized");
 		return;
 	}
 
@@ -108,7 +110,7 @@ FH_API void Flathead::InitializeV8()
 
 	if (!V8::InitializeICU())
 	{
-		perror("Failed to initialize ICU");
+		Croak("Failed to initialize ICU");
 
 		g_ICUInitialized = true;
 		return;
@@ -123,7 +125,7 @@ FH_API void Flathead::InitializeV8()
 
 	if (g_Platform == NULL)
 	{
-		perror("Failed to initialize the platform");
+		Croak("Failed to initialize the platform");
 		return;
 	}
 	
@@ -131,7 +133,7 @@ FH_API void Flathead::InitializeV8()
 
 	if (!V8::Initialize())
 	{
-		perror("Failed to initialize V8 appropriately");
+		Croak("Failed to initialize V8 appropriately");
 		return;
 	}
 
@@ -142,7 +144,7 @@ FH_API void Flathead::InitializeV8()
 
 	if (g_CurrentVM == NULL)
 	{
-		perror("Failed to create a new VM");
+		Croak("Failed to create a new VM");
 	}
 }
 
@@ -165,7 +167,7 @@ void Flathead::PreloadCore()
 		if (fopen_s(&file, GetConfiguration()->Bootstrap(), "rb"))
 		{
 			throw 1;
-			// perror("Could not load bootstrap file.");
+			// Croak("Could not load bootstrap file.");
 			// return; 
 		}
 
@@ -194,13 +196,13 @@ void Flathead::PreloadCore()
 		if (BSResult.IsEmpty() || try_catch.HasCaught())
 		{
 			String::Utf8Value utf8(try_catch.Exception());
-			perror(*utf8);
+			Croak(*utf8);
 			return;
 		}
 
 		if (!BSResult->IsFunction())
 		{
-			perror("The bootstrap script is supposed to return a function with the following signature: \n");
+			Croak("The bootstrap script is supposed to return a function with the following signature: \n");
 			return;
 		}
 
@@ -208,7 +210,7 @@ void Flathead::PreloadCore()
 
 		if (func.IsEmpty())
 		{
-			perror("The bootstrap script is supposed to return a function with the following signature: \n");
+			Croak("The bootstrap script is supposed to return a function with the following signature: \n");
 			return;
 		}
 
@@ -233,7 +235,7 @@ void Flathead::PreloadCore()
 		if (try_catch.HasCaught())
 		{
 			String::Utf8Value utf8(try_catch.Exception());
-			perror(*utf8);
+			Croak(*utf8);
 			return;
 		}
 
@@ -344,7 +346,7 @@ FH_API void Flathead::Execute(char *input, char *output)
 
 	if (result.IsEmpty())
 	{
-		perror("Something failed");
+		Croak("Something failed");
 		return;
 	}
 
@@ -592,4 +594,9 @@ bool Flathead::Set(char *key, Types::WideStringFunction cb)
 	func->SetName(v8::String::NewFromUtf8(g_CurrentVM, key));
 
 	return context->Global()->Set(func->GetName(), func);
+}
+
+void Flathead::Croak(char *message)
+{
+	GetConfiguration()->LoggingFn()(LogLevels::Error, message);
 }

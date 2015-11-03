@@ -59,6 +59,7 @@ namespace Gneu
 		void JSTick(float delta);
 
 	private:
+		void Croak(char *);
 		Configuration *configuration;
 	};
 }
