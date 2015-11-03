@@ -250,11 +250,11 @@ void Flathead::PreloadCore()
 			else
 			{
 				String::Utf8Value utf8(load);
-				printf("> %s", *utf8);
+				Log(*utf8);
 			}
 		}
 
-		printf("Bootstrap executed successfully.\n");
+		Log("Bootstrap executed successfully.\n");
 	}
 }
 
@@ -599,4 +599,9 @@ bool Flathead::Set(char *key, Types::WideStringFunction cb)
 void Flathead::Croak(char *message)
 {
 	GetConfiguration()->LoggingFn()(LogLevels::Error, message);
+}
+
+void Flathead::Log(char *message)
+{
+	GetConfiguration()->LoggingFn()(LogLevels::Log, message);
 }
