@@ -290,7 +290,6 @@ namespace Gneu
 
 		TEST_METHOD(ShouldBeAbleToSetAStringFunction)
 		{
-			int addr;
 			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::StringDoSomething);
 
@@ -319,7 +318,6 @@ namespace Gneu
 
 		TEST_METHOD(ShouldBeAbleToSetAWideStringFunction)
 		{
-			int addr;
 			char buffer[128] = { 0 };
 			pFH->Set("myFunc", &FunctionTests::WideStringDoSomething);
 
@@ -423,6 +421,102 @@ namespace Gneu
 			pFH->Set("myVar", pFn);
 
 			Types::Value *myReturnValue = pFH->Get("myVar");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedVoidFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::VoidDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedIntFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::IntDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedBoolFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::BoolDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedFloatFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::FloatDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedDoubleFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::DoubleDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedPointerFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::PointerDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedStringFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::PointerDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsFunction());
+
+			delete pFn;
+		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedWideStringFunction)
+		{
+			Types::Function *pFn = Types::Function::New("myFunction", &FunctionTests::PointerDoSomething);
+
+			Types::Value *myReturnValue = pFH->Get("myFunction");
 
 			Assert::IsNotNull(myReturnValue);
 			Assert::IsTrue(myReturnValue->IsFunction());

@@ -11,6 +11,7 @@ namespace Gneu
 		{
 		public:
 			NumberIMPL(v8::Handle<v8::Value>);
+			NumberIMPL(char *, double);
 			NumberIMPL(double);
 
 			bool IsNumber() const override;

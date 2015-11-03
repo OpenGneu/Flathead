@@ -22,6 +22,9 @@ namespace Gneu
 
 			static String *New(char *);
 			static String *New(wchar_t *);
+
+			static String *New(char *, char *);
+			static String *New(char *, wchar_t *);
 		};
 	}
 }

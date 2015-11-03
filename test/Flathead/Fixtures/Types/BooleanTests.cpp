@@ -81,5 +81,24 @@ namespace Gneu
 			delete b;
 			delete b2;
 		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedBoolean)
+		{
+			Types::Boolean *b = Types::Boolean::New("myBool", true);
+		
+			Types::Value *myReturnValue = pFH->Get("myBool");
+
+			Assert::IsNotNull(myReturnValue);
+			Assert::IsTrue(myReturnValue->IsBoolean());
+
+			Types::Boolean *myBoolean = (Types::Boolean *)myReturnValue;
+
+			Assert::IsNotNull(myBoolean);
+			Assert::IsTrue(myBoolean->IsBoolean());
+			Assert::IsTrue(*myBoolean);
+
+			delete myBoolean;
+			delete b;
+		}
 	};
 }

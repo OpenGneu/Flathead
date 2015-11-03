@@ -17,6 +17,7 @@ namespace Gneu
 	public:
 		Flathead();
 		~Flathead();
+
 		Flathead(Configuration &);
 
 		Configuration *GetConfiguration(); 
@@ -30,6 +31,7 @@ namespace Gneu
 		void Tick(float delta);
 
 		Types::Value *Get(char *);
+
 		bool Set(char *, char *);
 		bool Set(char *, double);
 		bool Set(char *, int);
@@ -59,6 +61,9 @@ namespace Gneu
 		void JSTick(float delta);
 
 	private:
+		void Log(char *);
+		void Croak(char *);
+
 		Configuration *configuration;
 	};
 }

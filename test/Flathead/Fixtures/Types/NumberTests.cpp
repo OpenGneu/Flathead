@@ -130,5 +130,24 @@ namespace Gneu
 			delete b;
 			delete b2;
 		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedNumber)
+		{
+			Types::Number *n = Types::Number::New("myNumber", 42);
+
+			Types::Value *myNumberValue = pFH->Get("myNumber");
+
+			Assert::IsNotNull(myNumberValue);
+			Assert::IsTrue(myNumberValue->IsNumber());
+
+			Types::Number *myNumber = (Types::Number *)myNumberValue;
+
+			Assert::IsNotNull(myNumber);
+			Assert::IsTrue(myNumber->IsNumber());
+			Assert::AreEqual(42.0, (double)*myNumber);
+
+			delete myNumber;
+			delete n;
+		}
 	};
 }

@@ -86,11 +86,11 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)deploy\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Public\;$(SolutionDir)\libs\v8\4.8.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\libs\v8\4.8.0\$(PlatformShortName)\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)intermediate\$(Configuration)\$(ProjectName)\$(PlatformShortName)\</IntDir>

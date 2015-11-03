@@ -14,6 +14,20 @@ NumberIMPL::NumberIMPL(v8::Handle<v8::Value> _value)
 	persisted_value.Reset(g_CurrentVM, v8::Handle<v8::Number>::Cast(_value));
 }
 
+NumberIMPL::NumberIMPL(char *name, double value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::Number> numRef = v8::Number::New(g_CurrentVM, value);
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), numRef);
+
+	persisted_value.Reset(g_CurrentVM, numRef);
+}
+
 NumberIMPL::NumberIMPL(double _value)
 {
 	Isolate::Scope isolate_scope(g_CurrentVM);

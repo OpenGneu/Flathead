@@ -8,3 +8,8 @@ Gneu::Types::Boolean *Gneu::Types::Boolean::New(bool value)
 {
 	return new Gneu::Types::BooleanIMPL(value);
 }
+
+Gneu::Types::Boolean *Gneu::Types::Boolean::New(char *name, bool value)
+{
+	return new Gneu::Types::BooleanIMPL(name, value);
+}
