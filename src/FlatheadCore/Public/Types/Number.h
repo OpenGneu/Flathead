@@ -10,7 +10,9 @@ namespace Gneu
 		{
 		public:
 			virtual operator double() const = 0;
+
 			static Number *New(double);
+			static Number *New(char *, double);
 		};
 	}
 }
