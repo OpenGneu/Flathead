@@ -13,3 +13,13 @@ Gneu::Types::String *Gneu::Types::String::New(wchar_t *value)
 {
 	return new Gneu::Types::StringIMPL(value);
 }
+
+Gneu::Types::String *Gneu::Types::String::New(char *name, char *value)
+{
+	return new Gneu::Types::StringIMPL(name, value);
+}
+
+Gneu::Types::String *Gneu::Types::String::New(char *name, wchar_t *value)
+{
+	return new Gneu::Types::StringIMPL(name, value);
+}

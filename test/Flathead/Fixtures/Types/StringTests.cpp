@@ -200,5 +200,34 @@ namespace Gneu
 			delete b;
 			delete b2;
 		}
+
+		TEST_METHOD(ShouldBeAbleToExposeANamedString)
+		{
+			Types::String *b = Types::String::New("myString", "test string");
+			Types::String *b2 = Types::String::New("myString2", L"test string");
+
+			Types::Value *myStringValue = pFH->Get("myString");
+			Types::Value *myStringValue2 = pFH->Get("myString2");
+
+			Assert::IsNotNull(myStringValue);
+			Assert::IsTrue(myStringValue->IsString());
+
+			Types::String *myString = (Types::String *)myStringValue;
+			Types::String *myString2 = (Types::String *)myStringValue2;
+
+			Assert::IsNotNull(myString);
+			Assert::IsTrue(myString->IsString());
+			Assert::IsTrue(myString->Equals("test string"));
+
+			Assert::IsNotNull(myString2);
+			Assert::IsTrue(myString2->IsString());
+			Assert::IsTrue(myString2->Equals(L"test string"));
+
+			delete myString;
+			delete myString2;
+
+			delete b;
+			delete b2;
+		}
 	};
 }

@@ -19,7 +19,7 @@ StringIMPL::StringIMPL(char *_value)
 	Isolate::Scope isolate_scope(g_CurrentVM);
 	HandleScope handle_scope(g_CurrentVM);
 	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
-	Context::Scope context_scope(context); 
+	Context::Scope context_scope(context);
 
 	persisted_value.Reset(g_CurrentVM, v8::String::NewFromUtf8(g_CurrentVM, _value));
 }
@@ -29,9 +29,37 @@ StringIMPL::StringIMPL(wchar_t *_value)
 	Isolate::Scope isolate_scope(g_CurrentVM);
 	HandleScope handle_scope(g_CurrentVM);
 	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
-	Context::Scope context_scope(context); 
+	Context::Scope context_scope(context);
 
 	persisted_value.Reset(g_CurrentVM, v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)_value));
+}
+
+StringIMPL::StringIMPL(char *name, char *_value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> stringRef = v8::String::NewFromUtf8(g_CurrentVM, _value);
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), stringRef);
+
+	persisted_value.Reset(g_CurrentVM, stringRef);
+}
+
+StringIMPL::StringIMPL(char *name, wchar_t *_value)
+{
+	Isolate::Scope isolate_scope(g_CurrentVM);
+	HandleScope handle_scope(g_CurrentVM);
+	Local<Context> context = v8::Local<v8::Context>::New(g_CurrentVM, g_GlobalContext);
+	Context::Scope context_scope(context);
+
+	Local<v8::String> stringRef = v8::String::NewFromTwoByte(g_CurrentVM, (uint16_t *)_value);
+
+	context->Global()->Set(v8::String::NewFromUtf8(g_CurrentVM, name), stringRef);
+
+	persisted_value.Reset(g_CurrentVM, stringRef);
 }
 
 bool StringIMPL::IsString() const

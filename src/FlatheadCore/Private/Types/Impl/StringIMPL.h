@@ -13,6 +13,8 @@ namespace Gneu
 			StringIMPL(v8::Handle<v8::Value>);
 			StringIMPL(char *);
 			StringIMPL(wchar_t *_value);
+			StringIMPL(char *, char *);
+			StringIMPL(char *, wchar_t *_value);
 
 			void Value(char *) const;
 			void Value(wchar_t *) const;
