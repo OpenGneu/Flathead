@@ -10,6 +10,7 @@ namespace Gneu
 		{
 		public:
 			virtual Gneu::Types::Value *operator[](int ndx) const = 0;
+			virtual void *Data() const = 0;
 		};
 	}
 }

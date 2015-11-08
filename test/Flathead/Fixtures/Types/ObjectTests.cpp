@@ -40,6 +40,7 @@ namespace Gneu
 			DoubleDoSomethingCalled = false;
 			FloatDoSomethingCalled = false;
 			PointerDoSomethingCalled = false;
+			GetDataCalled = false;
 		}
 
 		static bool VoidDoSomethingCalled;
@@ -101,6 +102,13 @@ namespace Gneu
 		{
 			WideStringDoSomethingCalled = true;
 			return L"Test Value";
+		}
+
+		static bool GetDataCalled;
+		static void *GetData(Types::CallbackInfo &args)
+		{
+			GetDataCalled = true;
+			return args.Data();
 		}
 
 		TEST_METHOD(ShouldBeAbleToRetrieveAnObject)
@@ -638,6 +646,19 @@ namespace Gneu
 
 			delete pSample;
 		}
+
+		TEST_METHOD(ShouldBeAbleToGetTheObjectAddressFromTheDataMethod)
+		{
+			int tmp;
+			Types::Object *pObject = Types::Object::New("testObject", this);
+
+			pObject->Set("GetData", &ObjectTests::GetData);
+			pFH->Execute("testObject.GetData();", tmp);
+
+			Assert::AreEqual((int)this, tmp);
+
+			delete pObject;
+		}
 	};
 
 	bool ObjectTests::VoidDoSomethingCalled = false;
@@ -648,4 +669,5 @@ namespace Gneu
 	bool ObjectTests::PointerDoSomethingCalled = false;
 	bool ObjectTests::StringDoSomethingCalled = false;
 	bool ObjectTests::WideStringDoSomethingCalled = false;
+	bool ObjectTests::GetDataCalled = false;
 }

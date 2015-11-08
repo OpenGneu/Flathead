@@ -23,3 +23,9 @@ Gneu::Types::Value *CallbackInfoIMPL::operator[](int ndx) const
 {
 	return Translate::ToFlathead((*arguments)[ndx]);
 }
+
+void *CallbackInfoIMPL::Data() const
+{
+	v8::Handle<v8::External> ext = v8::Handle<v8::External>::Cast(arguments->This()->GetInternalField(0));
+	return ext->Value();
+}

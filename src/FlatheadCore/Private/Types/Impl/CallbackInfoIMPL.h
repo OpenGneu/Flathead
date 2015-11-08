@@ -13,6 +13,7 @@ namespace Gneu
 		public:
 			CallbackInfoIMPL(const v8::FunctionCallbackInfo<v8::Value>& args);
 			Types::Value *operator[](int ndx) const;
+			void *Data() const;
 
 		private:
 			const v8::FunctionCallbackInfo<v8::Value> *arguments;
